@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -55,7 +55,7 @@ extern "C" {
 
 // Uncomment this line to use the standard MDK way of binding IRQ handlers
 // at linking time.
-//#include <soc/nrfx_irqs.h>
+// #include <soc/nrfx_irqs.h>
 
 //------------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ extern "C" {
  *        A compilation error is generated if the DWT unit is not present
  *        in the SoC used.
  */
-#define NRFX_DELAY_DWT_BASED    0
+#define NRFX_DELAY_DWT_BASED 0
 
 /**
  * @brief Macro for delaying the code execution for at least the specified time.
@@ -158,7 +158,8 @@ extern "C" {
 #define nrfx_atomic_t
 
 /**
- * @brief Macro for storing a value to an atomic object and returning its previous value.
+ * @brief Macro for storing a value to an atomic object and returning its
+ * previous value.
  *
  * @param[in] p_data Atomic memory pointer.
  * @param[in] value  Value to store.
@@ -168,7 +169,8 @@ extern "C" {
 #define NRFX_ATOMIC_FETCH_STORE(p_data, value)
 
 /**
- * @brief Macro for running a bitwise OR operation on an atomic object and returning its previous value.
+ * @brief Macro for running a bitwise OR operation on an atomic object and
+ * returning its previous value.
  *
  * @param[in] p_data Atomic memory pointer.
  * @param[in] value  Value of the second operand in the OR operation.
@@ -242,26 +244,33 @@ extern "C" {
 
 //------------------------------------------------------------------------------
 
-/** @brief Bitmask that defines DPPI channels that are reserved for use outside of the nrfx library. */
-#define NRFX_DPPI_CHANNELS_USED   0
+/** @brief Bitmask that defines DPPI channels that are reserved for use outside
+ * of the nrfx library. */
+#define NRFX_DPPI_CHANNELS_USED 0
 
-/** @brief Bitmask that defines DPPI groups that are reserved for use outside of the nrfx library. */
-#define NRFX_DPPI_GROUPS_USED     0
+/** @brief Bitmask that defines DPPI groups that are reserved for use outside of
+ * the nrfx library. */
+#define NRFX_DPPI_GROUPS_USED 0
 
-/** @brief Bitmask that defines PPI channels that are reserved for use outside of the nrfx library. */
-#define NRFX_PPI_CHANNELS_USED    0
+/** @brief Bitmask that defines PPI channels that are reserved for use outside
+ * of the nrfx library. */
+#define NRFX_PPI_CHANNELS_USED 0
 
-/** @brief Bitmask that defines PPI groups that are reserved for use outside of the nrfx library. */
-#define NRFX_PPI_GROUPS_USED      0
+/** @brief Bitmask that defines PPI groups that are reserved for use outside of
+ * the nrfx library. */
+#define NRFX_PPI_GROUPS_USED 0
 
-/** @brief Bitmask that defines GPIOTE channels that are reserved for use outside of the nrfx library. */
+/** @brief Bitmask that defines GPIOTE channels that are reserved for use
+ * outside of the nrfx library. */
 #define NRFX_GPIOTE_CHANNELS_USED 0
 
-/** @brief Bitmask that defines EGU instances that are reserved for use outside of the nrfx library. */
-#define NRFX_EGUS_USED            0
+/** @brief Bitmask that defines EGU instances that are reserved for use outside
+ * of the nrfx library. */
+#define NRFX_EGUS_USED 0
 
-/** @brief Bitmask that defines TIMER instances that are reserved for use outside of the nrfx library. */
-#define NRFX_TIMERS_USED          0
+/** @brief Bitmask that defines TIMER instances that are reserved for use
+ * outside of the nrfx library. */
+#define NRFX_TIMERS_USED 0
 
 /** @} */
 

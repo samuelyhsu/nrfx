@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -85,7 +85,6 @@ extern "C" {
  */
 #define NRFX_LOG_DEBUG(format, ...)
 
-
 /**
  * @brief Macro for logging a memory dump with the severity level ERROR.
  *
@@ -117,7 +116,6 @@ extern "C" {
  * @param[in] length   Length of the memory region in bytes.
  */
 #define NRFX_LOG_HEXDUMP_DEBUG(p_memory, length)
-
 
 /**
  * @brief Macro for getting the textual representation of a given error code.

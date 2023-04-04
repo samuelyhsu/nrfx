@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -34,8 +34,8 @@
 #ifndef NRFX_QDEC_H__
 #define NRFX_QDEC_H__
 
-#include <nrfx.h>
 #include <hal/nrf_qdec.h>
+#include <nrfx.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -49,18 +49,18 @@ extern "C" {
  */
 
 /** @brief QDEC configuration structure. */
-typedef struct
-{
-    nrf_qdec_reportper_t reportper;          /**< Report period in samples. */
-    nrf_qdec_sampleper_t sampleper;          /**< Sampling period in microseconds. */
-    uint32_t             psela;              /**< Pin number for A input. */
-    uint32_t             pselb;              /**< Pin number for B input. */
-    uint32_t             pselled;            /**< Pin number for LED output. */
-    uint32_t             ledpre;             /**< Time (in microseconds) how long LED is switched on before sampling. */
-    nrf_qdec_ledpol_t    ledpol;             /**< Active LED polarity. */
-    bool                 dbfen;              /**< State of debouncing filter. */
-    bool                 sample_inten;       /**< Enabling sample ready interrupt. */
-    uint8_t              interrupt_priority; /**< QDEC interrupt priority. */
+typedef struct {
+  nrf_qdec_reportper_t reportper; /**< Report period in samples. */
+  nrf_qdec_sampleper_t sampleper; /**< Sampling period in microseconds. */
+  uint32_t psela;                 /**< Pin number for A input. */
+  uint32_t pselb;                 /**< Pin number for B input. */
+  uint32_t pselled;               /**< Pin number for LED output. */
+  uint32_t ledpre; /**< Time (in microseconds) how long LED is switched on
+                      before sampling. */
+  nrf_qdec_ledpol_t ledpol;   /**< Active LED polarity. */
+  bool dbfen;                 /**< State of debouncing filter. */
+  bool sample_inten;          /**< Enabling sample ready interrupt. */
+  uint8_t interrupt_priority; /**< QDEC interrupt priority. */
 } nrfx_qdec_config_t;
 
 /**
@@ -78,42 +78,33 @@ typedef struct
  * @param[in] _pin_b   Pin for B encoder channel input.
  * @param[in] _pin_led Pin for LED output.
  */
-#define NRFX_QDEC_DEFAULT_CONFIG(_pin_a, _pin_b, _pin_led)           \
-    {                                                                \
-        .reportper          = NRF_QDEC_REPORTPER_10,                 \
-        .sampleper          = NRF_QDEC_SAMPLEPER_16384us,            \
-        .psela              = _pin_a,                                \
-        .pselb              = _pin_b,                                \
-        .pselled            = _pin_led,                              \
-        .ledpre             = 500,                                   \
-        .ledpol             = NRF_QDEC_LEPOL_ACTIVE_HIGH,            \
-        .dbfen              = NRF_QDEC_DBFEN_DISABLE,                \
-        .sample_inten       = false,                                 \
-        .interrupt_priority = NRFX_QDEC_DEFAULT_CONFIG_IRQ_PRIORITY  \
-    }
+#define NRFX_QDEC_DEFAULT_CONFIG(_pin_a, _pin_b, _pin_led)                     \
+  {                                                                            \
+    .reportper = NRF_QDEC_REPORTPER_10,                                        \
+    .sampleper = NRF_QDEC_SAMPLEPER_16384us, .psela = _pin_a, .pselb = _pin_b, \
+    .pselled = _pin_led, .ledpre = 500, .ledpol = NRF_QDEC_LEPOL_ACTIVE_HIGH,  \
+    .dbfen = NRF_QDEC_DBFEN_DISABLE, .sample_inten = false,                    \
+    .interrupt_priority = NRFX_QDEC_DEFAULT_CONFIG_IRQ_PRIORITY                \
+  }
 
 /** @brief QDEC sample event data. */
-typedef struct
-{
-    int8_t value; /**< Sample value. */
+typedef struct {
+  int8_t value; /**< Sample value. */
 } nrfx_qdec_sample_data_evt_t;
 
 /** @brief QDEC report event data. */
-typedef struct
-{
-    int16_t acc;     /**< Accumulated transitions. */
-    uint16_t accdbl; /**< Accumulated double transitions. */
+typedef struct {
+  int16_t acc;     /**< Accumulated transitions. */
+  uint16_t accdbl; /**< Accumulated double transitions. */
 } nrfx_qdec_report_data_evt_t;
 
 /** @brief QDEC event handler structure. */
-typedef struct
-{
-    nrf_qdec_event_t  type; /**< Event type. */
-    union
-    {
-        nrfx_qdec_sample_data_evt_t sample; /**< Sample event data. */
-        nrfx_qdec_report_data_evt_t report; /**< Report event data. */
-    } data;                                 /**< Union to store event data. */
+typedef struct {
+  nrf_qdec_event_t type; /**< Event type. */
+  union {
+    nrfx_qdec_sample_data_evt_t sample; /**< Sample event data. */
+    nrfx_qdec_report_data_evt_t report; /**< Report event data. */
+  } data;                               /**< Union to store event data. */
 } nrfx_qdec_event_t;
 
 /**
@@ -126,15 +117,16 @@ typedef void (*nrfx_qdec_event_handler_t)(nrfx_qdec_event_t event);
 /**
  * @brief Function for initializing QDEC.
  *
- * @param[in] p_config      Pointer to the structure with the initial configuration.
+ * @param[in] p_config      Pointer to the structure with the initial
+ * configuration.
  * @param[in] event_handler Event handler provided by the user.
  *                          Must not be NULL.
  *
  * @retval NRFX_SUCCESS             Initialization was successful.
  * @retval NRFX_ERROR_INVALID_STATE The QDEC was already initialized.
  */
-nrfx_err_t nrfx_qdec_init(nrfx_qdec_config_t const * p_config,
-                          nrfx_qdec_event_handler_t  event_handler);
+nrfx_err_t nrfx_qdec_init(nrfx_qdec_config_t const *p_config,
+                          nrfx_qdec_event_handler_t event_handler);
 
 /**
  * @brief Function for uninitializing QDEC.
@@ -166,7 +158,7 @@ void nrfx_qdec_disable(void);
  * @param[out] p_acc    Pointer to store the accumulated transitions.
  * @param[out] p_accdbl Pointer to store the accumulated double transitions.
  */
-void nrfx_qdec_accumulators_read(int16_t * p_acc, int16_t * p_accdbl);
+void nrfx_qdec_accumulators_read(int16_t *p_acc, int16_t *p_accdbl);
 
 /**
  * @brief Function for returning the address of the specified QDEC task.
@@ -187,22 +179,19 @@ NRFX_STATIC_INLINE uint32_t nrfx_qdec_task_address_get(nrf_qdec_task_t task);
 NRFX_STATIC_INLINE uint32_t nrfx_qdec_event_address_get(nrf_qdec_event_t event);
 
 #ifndef NRFX_DECLARE_ONLY
-NRFX_STATIC_INLINE uint32_t nrfx_qdec_task_address_get(nrf_qdec_task_t task)
-{
-    return nrf_qdec_task_address_get(NRF_QDEC, task);
+NRFX_STATIC_INLINE uint32_t nrfx_qdec_task_address_get(nrf_qdec_task_t task) {
+  return nrf_qdec_task_address_get(NRF_QDEC, task);
 }
 
-NRFX_STATIC_INLINE uint32_t nrfx_qdec_event_address_get(nrf_qdec_event_t event)
-{
-    return nrf_qdec_event_address_get(NRF_QDEC, event);
+NRFX_STATIC_INLINE uint32_t
+nrfx_qdec_event_address_get(nrf_qdec_event_t event) {
+  return nrf_qdec_event_address_get(NRF_QDEC, event);
 }
 #endif // NRFX_DECLARE_ONLY
 
 /** @} */
 
-
 void nrfx_qdec_irq_handler(void);
-
 
 #ifdef __cplusplus
 }

@@ -402,5 +402,3 @@ PDM_IRQHandler
         B .
 
         END
-
-

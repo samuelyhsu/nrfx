@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -55,7 +55,8 @@ extern "C" {
  * @note Faults are not managed by the MUTEX peripheral.
  *       One consequence is that if a mutex is locked and a fault happens,
  *       it is the responsibility of the fault handler to release the mutex.
- *       If a fault handler is not managing the mutex release, the mutex will remain locked.
+ *       If a fault handler is not managing the mutex release, the mutex will
+ * remain locked.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mutex Index of the mutex to be locked.
@@ -63,7 +64,7 @@ extern "C" {
  * @retval true  Mutex is successfully locked.
  * @retval false Mutex was already locked.
  */
-NRF_STATIC_INLINE bool nrf_mutex_lock(NRF_MUTEX_Type * p_reg, uint8_t mutex);
+NRF_STATIC_INLINE bool nrf_mutex_lock(NRF_MUTEX_Type *p_reg, uint8_t mutex);
 
 /**
  * @brief Function for unlocking the specified mutex.
@@ -73,18 +74,16 @@ NRF_STATIC_INLINE bool nrf_mutex_lock(NRF_MUTEX_Type * p_reg, uint8_t mutex);
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mutex Index of the mutex to be locked.
  */
-NRF_STATIC_INLINE void nrf_mutex_unlock(NRF_MUTEX_Type * p_reg, uint8_t mutex);
+NRF_STATIC_INLINE void nrf_mutex_unlock(NRF_MUTEX_Type *p_reg, uint8_t mutex);
 
 #ifndef NRF_DECLARE_ONLY
 
-NRF_STATIC_INLINE bool nrf_mutex_lock(NRF_MUTEX_Type * p_reg, uint8_t mutex)
-{
-    return (p_reg->MUTEX[mutex] == MUTEX_MUTEX_MUTEX_Unlocked);
+NRF_STATIC_INLINE bool nrf_mutex_lock(NRF_MUTEX_Type *p_reg, uint8_t mutex) {
+  return (p_reg->MUTEX[mutex] == MUTEX_MUTEX_MUTEX_Unlocked);
 }
 
-NRF_STATIC_INLINE void nrf_mutex_unlock(NRF_MUTEX_Type * p_reg, uint8_t mutex)
-{
-    p_reg->MUTEX[mutex] = MUTEX_MUTEX_MUTEX_Unlocked;
+NRF_STATIC_INLINE void nrf_mutex_unlock(NRF_MUTEX_Type *p_reg, uint8_t mutex) {
+  p_reg->MUTEX[mutex] = MUTEX_MUTEX_MUTEX_Unlocked;
 }
 
 #endif // NRF_DECLARE_ONLY

@@ -397,5 +397,3 @@ USBD_IRQHandler
         B .
 
         END
-
-

@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -44,34 +44,37 @@ extern "C" {
  * @defgroup nrf_rng_hal RNG HAL
  * @{
  * @ingroup nrf_rng
- * @brief   Hardware access layer (HAL) for managing the Random Number Generator (RNG) peripheral.
+ * @brief   Hardware access layer (HAL) for managing the Random Number Generator
+ * (RNG) peripheral.
  */
 
 /** @brief RNG tasks. */
-typedef enum
-{
-    NRF_RNG_TASK_START = offsetof(NRF_RNG_Type, TASKS_START), /**< Start the random number generator. */
-    NRF_RNG_TASK_STOP  = offsetof(NRF_RNG_Type, TASKS_STOP)   /**< Stop the random number generator. */
+typedef enum {
+  NRF_RNG_TASK_START = offsetof(
+      NRF_RNG_Type, TASKS_START), /**< Start the random number generator. */
+  NRF_RNG_TASK_STOP = offsetof(
+      NRF_RNG_Type, TASKS_STOP) /**< Stop the random number generator. */
 } nrf_rng_task_t;
 
 /** @brief RNG events. */
-typedef enum
-{
-    NRF_RNG_EVENT_VALRDY = offsetof(NRF_RNG_Type, EVENTS_VALRDY) /**< New random number generated event. */
+typedef enum {
+  NRF_RNG_EVENT_VALRDY = offsetof(
+      NRF_RNG_Type, EVENTS_VALRDY) /**< New random number generated event. */
 } nrf_rng_event_t;
 
 /** @brief RNG interrupts. */
-typedef enum
-{
-    NRF_RNG_INT_VALRDY_MASK = RNG_INTENSET_VALRDY_Msk /**< Mask for enabling or disabling an interrupt on VALRDY event. */
+typedef enum {
+  NRF_RNG_INT_VALRDY_MASK =
+      RNG_INTENSET_VALRDY_Msk /**< Mask for enabling or disabling an interrupt
+                                 on VALRDY event. */
 } nrf_rng_int_mask_t;
 
 /** @brief Types of RNG shortcuts. */
-typedef enum
-{
-    NRF_RNG_SHORT_VALRDY_STOP_MASK = RNG_SHORTS_VALRDY_STOP_Msk /**< Mask for setting shortcut between EVENT_VALRDY and TASK_STOP. */
+typedef enum {
+  NRF_RNG_SHORT_VALRDY_STOP_MASK =
+      RNG_SHORTS_VALRDY_STOP_Msk /**< Mask for setting shortcut between
+                                    EVENT_VALRDY and TASK_STOP. */
 } nrf_rng_short_mask_t;
-
 
 /**
  * @brief Function for enabling interrupts.
@@ -79,7 +82,7 @@ typedef enum
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of interrupts to be enabled.
  */
-NRF_STATIC_INLINE void nrf_rng_int_enable(NRF_RNG_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_rng_int_enable(NRF_RNG_Type *p_reg, uint32_t mask);
 
 /**
  * @brief Function for disabling interrupts.
@@ -87,7 +90,7 @@ NRF_STATIC_INLINE void nrf_rng_int_enable(NRF_RNG_Type * p_reg, uint32_t mask);
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of interrupts to be disabled.
  */
-NRF_STATIC_INLINE void nrf_rng_int_disable(NRF_RNG_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_rng_int_disable(NRF_RNG_Type *p_reg, uint32_t mask);
 
 /**
  * @brief Function for checking if the specified interrupts are enabled.
@@ -97,7 +100,8 @@ NRF_STATIC_INLINE void nrf_rng_int_disable(NRF_RNG_Type * p_reg, uint32_t mask);
  *
  * @return Mask of enabled interrupts.
  */
-NRF_STATIC_INLINE uint32_t nrf_rng_int_enable_check(NRF_RNG_Type const * p_reg, uint32_t mask);
+NRF_STATIC_INLINE uint32_t nrf_rng_int_enable_check(NRF_RNG_Type const *p_reg,
+                                                    uint32_t mask);
 
 /**
  * @brief Function for getting the address of the specified task.
@@ -109,8 +113,8 @@ NRF_STATIC_INLINE uint32_t nrf_rng_int_enable_check(NRF_RNG_Type const * p_reg, 
  *
  * @return Address of the specified task.
  */
-NRF_STATIC_INLINE uint32_t nrf_rng_task_address_get(NRF_RNG_Type const * p_reg,
-                                                    nrf_rng_task_t       rng_task);
+NRF_STATIC_INLINE uint32_t nrf_rng_task_address_get(NRF_RNG_Type const *p_reg,
+                                                    nrf_rng_task_t rng_task);
 
 /**
  * @brief Function for triggering the specified task.
@@ -118,7 +122,8 @@ NRF_STATIC_INLINE uint32_t nrf_rng_task_address_get(NRF_RNG_Type const * p_reg,
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
  * @param[in] rng_task The specified Task.
  */
-NRF_STATIC_INLINE void nrf_rng_task_trigger(NRF_RNG_Type * p_reg, nrf_rng_task_t rng_task);
+NRF_STATIC_INLINE void nrf_rng_task_trigger(NRF_RNG_Type *p_reg,
+                                            nrf_rng_task_t rng_task);
 
 /**
  * @brief Function for getting address of the specified event.
@@ -130,8 +135,8 @@ NRF_STATIC_INLINE void nrf_rng_task_trigger(NRF_RNG_Type * p_reg, nrf_rng_task_t
  *
  * @return Address of the specified event.
  */
-NRF_STATIC_INLINE uint32_t nrf_rng_event_address_get(NRF_RNG_Type const * p_reg,
-                                                     nrf_rng_event_t      rng_event);
+NRF_STATIC_INLINE uint32_t nrf_rng_event_address_get(NRF_RNG_Type const *p_reg,
+                                                     nrf_rng_event_t rng_event);
 
 /**
  * @brief Function for clearing the specified event.
@@ -139,7 +144,8 @@ NRF_STATIC_INLINE uint32_t nrf_rng_event_address_get(NRF_RNG_Type const * p_reg,
  * @param[in] p_reg     Pointer to the structure of registers of the peripheral.
  * @param[in] rng_event The specified event.
  */
-NRF_STATIC_INLINE void nrf_rng_event_clear(NRF_RNG_Type * p_reg, nrf_rng_event_t rng_event);
+NRF_STATIC_INLINE void nrf_rng_event_clear(NRF_RNG_Type *p_reg,
+                                           nrf_rng_event_t rng_event);
 
 /**
  * @brief Function for retrieving the state of the specified event.
@@ -150,7 +156,8 @@ NRF_STATIC_INLINE void nrf_rng_event_clear(NRF_RNG_Type * p_reg, nrf_rng_event_t
  * @retval true  The event is set.
  * @retval false The event is not set.
  */
-NRF_STATIC_INLINE bool nrf_rng_event_check(NRF_RNG_Type const * p_reg, nrf_rng_event_t rng_event);
+NRF_STATIC_INLINE bool nrf_rng_event_check(NRF_RNG_Type const *p_reg,
+                                           nrf_rng_event_t rng_event);
 
 /**
  * @brief Function for setting shortcuts.
@@ -158,7 +165,8 @@ NRF_STATIC_INLINE bool nrf_rng_event_check(NRF_RNG_Type const * p_reg, nrf_rng_e
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of shortcuts.
  */
-NRF_STATIC_INLINE void nrf_rng_shorts_enable(NRF_RNG_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_rng_shorts_enable(NRF_RNG_Type *p_reg,
+                                             uint32_t mask);
 
 /**
  * @brief Function for clearing shortcuts.
@@ -166,7 +174,8 @@ NRF_STATIC_INLINE void nrf_rng_shorts_enable(NRF_RNG_Type * p_reg, uint32_t mask
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of shortcuts.
  */
-NRF_STATIC_INLINE void nrf_rng_shorts_disable(NRF_RNG_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_rng_shorts_disable(NRF_RNG_Type *p_reg,
+                                              uint32_t mask);
 
 /**
  * @brief Function for getting the previously generated random value.
@@ -175,21 +184,21 @@ NRF_STATIC_INLINE void nrf_rng_shorts_disable(NRF_RNG_Type * p_reg, uint32_t mas
  *
  * @return Previously generated random value.
  */
-NRF_STATIC_INLINE uint8_t nrf_rng_random_value_get(NRF_RNG_Type const * p_reg);
+NRF_STATIC_INLINE uint8_t nrf_rng_random_value_get(NRF_RNG_Type const *p_reg);
 
 /**
  * @brief Function for enabling digital error correction.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  */
-NRF_STATIC_INLINE void nrf_rng_error_correction_enable(NRF_RNG_Type * p_reg);
+NRF_STATIC_INLINE void nrf_rng_error_correction_enable(NRF_RNG_Type *p_reg);
 
 /**
  * @brief Function for disabling digital error correction.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  */
-NRF_STATIC_INLINE void nrf_rng_error_correction_disable(NRF_RNG_Type * p_reg);
+NRF_STATIC_INLINE void nrf_rng_error_correction_disable(NRF_RNG_Type *p_reg);
 
 #if defined(DPPI_PRESENT) || defined(__NRFX_DOXYGEN__)
 /**
@@ -200,9 +209,9 @@ NRF_STATIC_INLINE void nrf_rng_error_correction_disable(NRF_RNG_Type * p_reg);
  * @param[in] task    Task for which to set the configuration.
  * @param[in] channel Channel through which to subscribe events.
  */
-NRF_STATIC_INLINE void nrf_rng_subscribe_set(NRF_RNG_Type * p_reg,
+NRF_STATIC_INLINE void nrf_rng_subscribe_set(NRF_RNG_Type *p_reg,
                                              nrf_rng_task_t task,
-                                             uint8_t        channel);
+                                             uint8_t channel);
 
 /**
  * @brief Function for clearing the subscribe configuration for a given
@@ -211,7 +220,7 @@ NRF_STATIC_INLINE void nrf_rng_subscribe_set(NRF_RNG_Type * p_reg,
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] task  Task for which to clear the configuration.
  */
-NRF_STATIC_INLINE void nrf_rng_subscribe_clear(NRF_RNG_Type * p_reg,
+NRF_STATIC_INLINE void nrf_rng_subscribe_clear(NRF_RNG_Type *p_reg,
                                                nrf_rng_task_t task);
 
 /**
@@ -222,9 +231,9 @@ NRF_STATIC_INLINE void nrf_rng_subscribe_clear(NRF_RNG_Type * p_reg,
  * @param[in] event   Event for which to set the configuration.
  * @param[in] channel Channel through which to publish the event.
  */
-NRF_STATIC_INLINE void nrf_rng_publish_set(NRF_RNG_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_rng_publish_set(NRF_RNG_Type *p_reg,
                                            nrf_rng_event_t event,
-                                           uint8_t         channel);
+                                           uint8_t channel);
 
 /**
  * @brief Function for clearing the publish configuration for a given
@@ -233,108 +242,96 @@ NRF_STATIC_INLINE void nrf_rng_publish_set(NRF_RNG_Type *  p_reg,
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] event Event for which to clear the configuration.
  */
-NRF_STATIC_INLINE void nrf_rng_publish_clear(NRF_RNG_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_rng_publish_clear(NRF_RNG_Type *p_reg,
                                              nrf_rng_event_t event);
 #endif // defined(DPPI_PRESENT) || defined(__NRFX_DOXYGEN__)
 
-
 #ifndef NRF_DECLARE_ONLY
 
-NRF_STATIC_INLINE void nrf_rng_int_enable(NRF_RNG_Type * p_reg, uint32_t mask)
-{
-    p_reg->INTENSET = mask;
+NRF_STATIC_INLINE void nrf_rng_int_enable(NRF_RNG_Type *p_reg, uint32_t mask) {
+  p_reg->INTENSET = mask;
 }
 
-NRF_STATIC_INLINE void nrf_rng_int_disable(NRF_RNG_Type * p_reg, uint32_t mask)
-{
-    p_reg->INTENCLR = mask;
+NRF_STATIC_INLINE void nrf_rng_int_disable(NRF_RNG_Type *p_reg, uint32_t mask) {
+  p_reg->INTENCLR = mask;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_rng_int_enable_check(NRF_RNG_Type const * p_reg, uint32_t mask)
-{
-    return p_reg->INTENSET & mask;
+NRF_STATIC_INLINE uint32_t nrf_rng_int_enable_check(NRF_RNG_Type const *p_reg,
+                                                    uint32_t mask) {
+  return p_reg->INTENSET & mask;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_rng_task_address_get(NRF_RNG_Type const * p_reg,
-                                                    nrf_rng_task_t       rng_task)
-{
-    return (uint32_t)((uint8_t *)p_reg + (uint32_t)rng_task);
+NRF_STATIC_INLINE uint32_t nrf_rng_task_address_get(NRF_RNG_Type const *p_reg,
+                                                    nrf_rng_task_t rng_task) {
+  return (uint32_t)((uint8_t *)p_reg + (uint32_t)rng_task);
 }
 
-NRF_STATIC_INLINE void nrf_rng_task_trigger(NRF_RNG_Type * p_reg, nrf_rng_task_t rng_task)
-{
-    *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)rng_task)) = 0x1UL;
+NRF_STATIC_INLINE void nrf_rng_task_trigger(NRF_RNG_Type *p_reg,
+                                            nrf_rng_task_t rng_task) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)rng_task)) = 0x1UL;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_rng_event_address_get(NRF_RNG_Type const * p_reg,
-                                                     nrf_rng_event_t      rng_event)
-{
-    return (uint32_t)((uint8_t *)p_reg + (uint32_t)rng_event);
+NRF_STATIC_INLINE uint32_t nrf_rng_event_address_get(
+    NRF_RNG_Type const *p_reg, nrf_rng_event_t rng_event) {
+  return (uint32_t)((uint8_t *)p_reg + (uint32_t)rng_event);
 }
 
-NRF_STATIC_INLINE void nrf_rng_event_clear(NRF_RNG_Type * p_reg, nrf_rng_event_t rng_event)
-{
-    *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)rng_event)) = 0x0UL;
-    nrf_event_readback((uint8_t *)p_reg + (uint32_t)rng_event);
+NRF_STATIC_INLINE void nrf_rng_event_clear(NRF_RNG_Type *p_reg,
+                                           nrf_rng_event_t rng_event) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)rng_event)) = 0x0UL;
+  nrf_event_readback((uint8_t *)p_reg + (uint32_t)rng_event);
 }
 
-NRF_STATIC_INLINE bool nrf_rng_event_check(NRF_RNG_Type const * p_reg, nrf_rng_event_t rng_event)
-{
-    return (bool) * ((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)rng_event));
+NRF_STATIC_INLINE bool nrf_rng_event_check(NRF_RNG_Type const *p_reg,
+                                           nrf_rng_event_t rng_event) {
+  return (bool)*((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)rng_event));
 }
 
-NRF_STATIC_INLINE void nrf_rng_shorts_enable(NRF_RNG_Type * p_reg, uint32_t mask)
-{
-     p_reg->SHORTS |= mask;
+NRF_STATIC_INLINE void nrf_rng_shorts_enable(NRF_RNG_Type *p_reg,
+                                             uint32_t mask) {
+  p_reg->SHORTS |= mask;
 }
 
-NRF_STATIC_INLINE void nrf_rng_shorts_disable(NRF_RNG_Type * p_reg, uint32_t mask)
-{
-     p_reg->SHORTS &= ~mask;
+NRF_STATIC_INLINE void nrf_rng_shorts_disable(NRF_RNG_Type *p_reg,
+                                              uint32_t mask) {
+  p_reg->SHORTS &= ~mask;
 }
 
-NRF_STATIC_INLINE uint8_t nrf_rng_random_value_get(NRF_RNG_Type const * p_reg)
-{
-    return (uint8_t)(p_reg->VALUE & RNG_VALUE_VALUE_Msk);
+NRF_STATIC_INLINE uint8_t nrf_rng_random_value_get(NRF_RNG_Type const *p_reg) {
+  return (uint8_t)(p_reg->VALUE & RNG_VALUE_VALUE_Msk);
 }
 
-NRF_STATIC_INLINE void nrf_rng_error_correction_enable(NRF_RNG_Type * p_reg)
-{
-    p_reg->CONFIG |= RNG_CONFIG_DERCEN_Msk;
+NRF_STATIC_INLINE void nrf_rng_error_correction_enable(NRF_RNG_Type *p_reg) {
+  p_reg->CONFIG |= RNG_CONFIG_DERCEN_Msk;
 }
 
-NRF_STATIC_INLINE void nrf_rng_error_correction_disable(NRF_RNG_Type * p_reg)
-{
-    p_reg->CONFIG &= ~RNG_CONFIG_DERCEN_Msk;
+NRF_STATIC_INLINE void nrf_rng_error_correction_disable(NRF_RNG_Type *p_reg) {
+  p_reg->CONFIG &= ~RNG_CONFIG_DERCEN_Msk;
 }
 
 #if defined(DPPI_PRESENT)
-NRF_STATIC_INLINE void nrf_rng_subscribe_set(NRF_RNG_Type * p_reg,
+NRF_STATIC_INLINE void nrf_rng_subscribe_set(NRF_RNG_Type *p_reg,
                                              nrf_rng_task_t task,
-                                             uint8_t        channel)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) task + 0x80uL)) =
-            ((uint32_t)channel | RNG_SUBSCRIBE_START_EN_Msk);
+                                             uint8_t channel) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)task + 0x80uL)) =
+      ((uint32_t)channel | RNG_SUBSCRIBE_START_EN_Msk);
 }
 
-NRF_STATIC_INLINE void nrf_rng_subscribe_clear(NRF_RNG_Type * p_reg,
-                                               nrf_rng_task_t task)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) task + 0x80uL)) = 0;
+NRF_STATIC_INLINE void nrf_rng_subscribe_clear(NRF_RNG_Type *p_reg,
+                                               nrf_rng_task_t task) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)task + 0x80uL)) = 0;
 }
 
-NRF_STATIC_INLINE void nrf_rng_publish_set(NRF_RNG_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_rng_publish_set(NRF_RNG_Type *p_reg,
                                            nrf_rng_event_t event,
-                                           uint8_t         channel)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) event + 0x80uL)) =
-            ((uint32_t)channel | RNG_PUBLISH_VALRDY_EN_Msk);
+                                           uint8_t channel) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event + 0x80uL)) =
+      ((uint32_t)channel | RNG_PUBLISH_VALRDY_EN_Msk);
 }
 
-NRF_STATIC_INLINE void nrf_rng_publish_clear(NRF_RNG_Type *  p_reg,
-                                             nrf_rng_event_t event)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) event + 0x80uL)) = 0;
+NRF_STATIC_INLINE void nrf_rng_publish_clear(NRF_RNG_Type *p_reg,
+                                             nrf_rng_event_t event) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event + 0x80uL)) = 0;
 }
 #endif // defined(DPPI_PRESENT)
 

@@ -83,6 +83,4 @@
  */
 #define NRFX_SAADC_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

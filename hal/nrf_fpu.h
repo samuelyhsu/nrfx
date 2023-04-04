@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -44,31 +44,54 @@ extern "C" {
  * @defgroup nrf_fpu_hal FPU HAL
  * @{
  * @ingroup nrf_fpu
- * @brief   Hardware access layer (HAL) for managing the Floating Point Unit configuration.
+ * @brief   Hardware access layer (HAL) for managing the Floating Point Unit
+ * configuration.
  */
 
 /** @brief FPU events. */
-typedef enum
-{
-    NRF_FPU_EVENT_INVALIDOPERATION = offsetof(NRF_FPU_Type, EVENTS_INVALIDOPERATION), /**< An FPUIOC exception triggered by an invalid operation has occurred in the FPU. */
-    NRF_FPU_EVENT_DIVIDEBYZERO     = offsetof(NRF_FPU_Type, EVENTS_DIVIDEBYZERO),     /**< An FPUDZC exception triggered by a floating-point divide-by-zero operation has occurred in the FPU. */
-    NRF_FPU_EVENT_OVERFLOW         = offsetof(NRF_FPU_Type, EVENTS_OVERFLOW),         /**< An FPUOFC exception triggered by a floating-point overflow has occurred in the FPU. */
-    NRF_FPU_EVENT_UNDERFLOW        = offsetof(NRF_FPU_Type, EVENTS_UNDERFLOW),        /**< An FPUUFC exception triggered by a floating-point underflow has occurred in the FPU. */
-    NRF_FPU_EVENT_INEXACT          = offsetof(NRF_FPU_Type, EVENTS_INEXACT),          /**< An FPUIXC exception triggered by an inexact floating-point operation has occurred in the FPU. */
-    NRF_FPU_EVENT_DENORMALINPUT    = offsetof(NRF_FPU_Type, EVENTS_DENORMALINPUT),    /**< An FPUIDC exception triggered by a denormal floating-point input has occurred in the FPU. */
+typedef enum {
+  NRF_FPU_EVENT_INVALIDOPERATION = offsetof(
+      NRF_FPU_Type,
+      EVENTS_INVALIDOPERATION), /**< An FPUIOC exception triggered by an invalid
+                                   operation has occurred in the FPU. */
+  NRF_FPU_EVENT_DIVIDEBYZERO =
+      offsetof(NRF_FPU_Type,
+               EVENTS_DIVIDEBYZERO), /**< An FPUDZC exception triggered by a
+                                        floating-point divide-by-zero operation
+                                        has occurred in the FPU. */
+  NRF_FPU_EVENT_OVERFLOW = offsetof(
+      NRF_FPU_Type,
+      EVENTS_OVERFLOW), /**< An FPUOFC exception triggered by a floating-point
+                           overflow has occurred in the FPU. */
+  NRF_FPU_EVENT_UNDERFLOW = offsetof(
+      NRF_FPU_Type,
+      EVENTS_UNDERFLOW), /**< An FPUUFC exception triggered by a floating-point
+                            underflow has occurred in the FPU. */
+  NRF_FPU_EVENT_INEXACT = offsetof(
+      NRF_FPU_Type,
+      EVENTS_INEXACT), /**< An FPUIXC exception triggered by an inexact
+                          floating-point operation has occurred in the FPU. */
+  NRF_FPU_EVENT_DENORMALINPUT = offsetof(
+      NRF_FPU_Type,
+      EVENTS_DENORMALINPUT), /**< An FPUIDC exception triggered by a denormal
+                                floating-point input has occurred in the FPU. */
 } nrf_fpu_event_t;
 
-
-
 /** @brief FPU interrupts. */
-typedef enum
-{
-    NRF_FPU_INT_INVALIDOPERATION = FPU_INTEN_INVALIDOPERATION_Msk, /**< Interrupt on event INVALIDOPERATION. */
-    NRF_FPU_INT_DIVIDEBYZERO     = FPU_INTEN_DIVIDEBYZERO_Msk,     /**< Interrupt on event DIVIDEBYZERO. */
-    NRF_FPU_INT_OVERFLOW         = FPU_INTEN_OVERFLOW_Msk,         /**< Interrupt on event OVERFLOW. */
-    NRF_FPU_INT_UNDERFLOW        = FPU_INTEN_UNDERFLOW_Msk,        /**< Interrupt on event UNDERFLOW. */
-    NRF_FPU_INT_INEXACT          = FPU_INTEN_INEXACT_Msk,          /**< Interrupt on event INEXACT. */
-    NRF_FPU_INT_DENORMALINPUT    = FPU_INTEN_DENORMALINPUT_Msk,    /**< Interrupt on event DENORMALINPUT. */
+typedef enum {
+  NRF_FPU_INT_INVALIDOPERATION =
+      FPU_INTEN_INVALIDOPERATION_Msk, /**< Interrupt on event INVALIDOPERATION.
+                                       */
+  NRF_FPU_INT_DIVIDEBYZERO =
+      FPU_INTEN_DIVIDEBYZERO_Msk, /**< Interrupt on event DIVIDEBYZERO. */
+  NRF_FPU_INT_OVERFLOW =
+      FPU_INTEN_OVERFLOW_Msk, /**< Interrupt on event OVERFLOW. */
+  NRF_FPU_INT_UNDERFLOW =
+      FPU_INTEN_UNDERFLOW_Msk, /**< Interrupt on event UNDERFLOW. */
+  NRF_FPU_INT_INEXACT =
+      FPU_INTEN_INEXACT_Msk, /**< Interrupt on event INEXACT. */
+  NRF_FPU_INT_DENORMALINPUT =
+      FPU_INTEN_DENORMALINPUT_Msk, /**< Interrupt on event DENORMALINPUT. */
 } nrf_fpu_int_mask_t;
 
 /**
@@ -77,7 +100,7 @@ typedef enum
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] event Event to be cleared.
  */
-NRF_STATIC_INLINE void nrf_fpu_event_clear(NRF_FPU_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_fpu_event_clear(NRF_FPU_Type *p_reg,
                                            nrf_fpu_event_t event);
 
 /**
@@ -89,8 +112,8 @@ NRF_STATIC_INLINE void nrf_fpu_event_clear(NRF_FPU_Type *  p_reg,
  * @retval true  The event has been generated.
  * @retval false The event has not been generated.
  */
-NRF_STATIC_INLINE bool nrf_fpu_event_check(NRF_FPU_Type const * p_reg,
-                                           nrf_fpu_event_t      event);
+NRF_STATIC_INLINE bool nrf_fpu_event_check(NRF_FPU_Type const *p_reg,
+                                           nrf_fpu_event_t event);
 
 /**
  * @brief Function for enabling specified interrupts.
@@ -98,7 +121,7 @@ NRF_STATIC_INLINE bool nrf_fpu_event_check(NRF_FPU_Type const * p_reg,
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of interrupts to be enabled.
  */
-NRF_STATIC_INLINE void nrf_fpu_int_enable(NRF_FPU_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_fpu_int_enable(NRF_FPU_Type *p_reg, uint32_t mask);
 
 /**
  * @brief Function for disabling specified interrupts.
@@ -106,7 +129,7 @@ NRF_STATIC_INLINE void nrf_fpu_int_enable(NRF_FPU_Type * p_reg, uint32_t mask);
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of interrupts to be disabled.
  */
-NRF_STATIC_INLINE void nrf_fpu_int_disable(NRF_FPU_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_fpu_int_disable(NRF_FPU_Type *p_reg, uint32_t mask);
 
 /**
  * @brief Function for checking if the specified interrupts are enabled.
@@ -116,35 +139,32 @@ NRF_STATIC_INLINE void nrf_fpu_int_disable(NRF_FPU_Type * p_reg, uint32_t mask);
  *
  * @return Mask of enabled interrupts.
  */
-NRF_STATIC_INLINE uint32_t nrf_fpu_int_enable_check(NRF_FPU_Type const * p_reg, uint32_t mask);
+NRF_STATIC_INLINE uint32_t nrf_fpu_int_enable_check(NRF_FPU_Type const *p_reg,
+                                                    uint32_t mask);
 
 #ifndef NRF_DECLARE_ONLY
 
-NRF_STATIC_INLINE void nrf_fpu_event_clear(NRF_FPU_Type *  p_reg,
-                                           nrf_fpu_event_t event)
-{
-    *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event)) = 0x0UL;
+NRF_STATIC_INLINE void nrf_fpu_event_clear(NRF_FPU_Type *p_reg,
+                                           nrf_fpu_event_t event) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event)) = 0x0UL;
 }
 
-NRF_STATIC_INLINE bool nrf_fpu_event_check(NRF_FPU_Type const * p_reg,
-                                           nrf_fpu_event_t      event)
-{
-    return (bool)*(volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event);
+NRF_STATIC_INLINE bool nrf_fpu_event_check(NRF_FPU_Type const *p_reg,
+                                           nrf_fpu_event_t event) {
+  return (bool)*(volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event);
 }
 
-NRF_STATIC_INLINE void nrf_fpu_int_enable(NRF_FPU_Type * p_reg, uint32_t mask)
-{
-    p_reg->INTENSET = mask;
+NRF_STATIC_INLINE void nrf_fpu_int_enable(NRF_FPU_Type *p_reg, uint32_t mask) {
+  p_reg->INTENSET = mask;
 }
 
-NRF_STATIC_INLINE void nrf_fpu_int_disable(NRF_FPU_Type * p_reg, uint32_t mask)
-{
-    p_reg->INTENCLR = mask;
+NRF_STATIC_INLINE void nrf_fpu_int_disable(NRF_FPU_Type *p_reg, uint32_t mask) {
+  p_reg->INTENCLR = mask;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_fpu_int_enable_check(NRF_FPU_Type const * p_reg, uint32_t mask)
-{
-    return p_reg->INTENSET & mask;
+NRF_STATIC_INLINE uint32_t nrf_fpu_int_enable_check(NRF_FPU_Type const *p_reg,
+                                                    uint32_t mask) {
+  return p_reg->INTENSET & mask;
 }
 
 #endif // NRF_DECLARE_ONLY

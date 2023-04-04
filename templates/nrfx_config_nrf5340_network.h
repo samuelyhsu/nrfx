@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -35,7 +35,8 @@
 #define NRFX_CONFIG_NRF5340_NETWORK_H__
 
 #ifndef NRFX_CONFIG_H__
-#error "This file should not be included directly. Include nrfx_config.h instead."
+#error                                                                         \
+    "This file should not be included directly. Include nrfx_config.h instead."
 #endif
 
 /*
@@ -45,45 +46,45 @@
  * use the macros without any suffixes, you must translate the names.
  * The following section provides configuration for the name translation.
  */
-#define NRF_AAR        NRF_AAR_NS
-#define NRF_ACL        NRF_ACL_NS
-#define NRF_CCM        NRF_CCM_NS
-#define NRF_CLOCK      NRF_CLOCK_NS
-#define NRF_CTI        NRF_CTI_NS
-#define NRF_CTRLAP     NRF_CTRLAP_NS
-#define NRF_DCNF       NRF_DCNF_NS
-#define NRF_DPPIC      NRF_DPPIC_NS
-#define NRF_ECB        NRF_ECB_NS
-#define NRF_EGU0       NRF_EGU0_NS
-#define NRF_FICR       NRF_FICR_NS
-#define NRF_GPIOTE     NRF_GPIOTE_NS
-#define NRF_IPC        NRF_IPC_NS
-#define NRF_NVMC       NRF_NVMC_NS
-#define NRF_P0         NRF_P0_NS
-#define NRF_P1         NRF_P1_NS
-#define NRF_POWER      NRF_POWER_NS
-#define NRF_RADIO      NRF_RADIO_NS
-#define NRF_RESET      NRF_RESET_NS
-#define NRF_RNG        NRF_RNG_NS
-#define NRF_RTC0       NRF_RTC0_NS
-#define NRF_RTC1       NRF_RTC1_NS
-#define NRF_SPIM0      NRF_SPIM0_NS
-#define NRF_SPIS0      NRF_SPIS0_NS
-#define NRF_SWI0       NRF_SWI0_NS
-#define NRF_SWI1       NRF_SWI1_NS
-#define NRF_SWI2       NRF_SWI2_NS
-#define NRF_SWI3       NRF_SWI3_NS
-#define NRF_TEMP       NRF_TEMP_NS
-#define NRF_TIMER0     NRF_TIMER0_NS
-#define NRF_TIMER1     NRF_TIMER1_NS
-#define NRF_TIMER2     NRF_TIMER2_NS
-#define NRF_TWIM0      NRF_TWIM0_NS
-#define NRF_TWIS0      NRF_TWIS0_NS
-#define NRF_UARTE0     NRF_UARTE0_NS
-#define NRF_UICR       NRF_UICR_NS
-#define NRF_VMC        NRF_VMC_NS
-#define NRF_VREQCTRL   NRF_VREQCTRL_NS
-#define NRF_WDT        NRF_WDT_NS
+#define NRF_AAR NRF_AAR_NS
+#define NRF_ACL NRF_ACL_NS
+#define NRF_CCM NRF_CCM_NS
+#define NRF_CLOCK NRF_CLOCK_NS
+#define NRF_CTI NRF_CTI_NS
+#define NRF_CTRLAP NRF_CTRLAP_NS
+#define NRF_DCNF NRF_DCNF_NS
+#define NRF_DPPIC NRF_DPPIC_NS
+#define NRF_ECB NRF_ECB_NS
+#define NRF_EGU0 NRF_EGU0_NS
+#define NRF_FICR NRF_FICR_NS
+#define NRF_GPIOTE NRF_GPIOTE_NS
+#define NRF_IPC NRF_IPC_NS
+#define NRF_NVMC NRF_NVMC_NS
+#define NRF_P0 NRF_P0_NS
+#define NRF_P1 NRF_P1_NS
+#define NRF_POWER NRF_POWER_NS
+#define NRF_RADIO NRF_RADIO_NS
+#define NRF_RESET NRF_RESET_NS
+#define NRF_RNG NRF_RNG_NS
+#define NRF_RTC0 NRF_RTC0_NS
+#define NRF_RTC1 NRF_RTC1_NS
+#define NRF_SPIM0 NRF_SPIM0_NS
+#define NRF_SPIS0 NRF_SPIS0_NS
+#define NRF_SWI0 NRF_SWI0_NS
+#define NRF_SWI1 NRF_SWI1_NS
+#define NRF_SWI2 NRF_SWI2_NS
+#define NRF_SWI3 NRF_SWI3_NS
+#define NRF_TEMP NRF_TEMP_NS
+#define NRF_TIMER0 NRF_TIMER0_NS
+#define NRF_TIMER1 NRF_TIMER1_NS
+#define NRF_TIMER2 NRF_TIMER2_NS
+#define NRF_TWIM0 NRF_TWIM0_NS
+#define NRF_TWIS0 NRF_TWIS0_NS
+#define NRF_UARTE0 NRF_UARTE0_NS
+#define NRF_UICR NRF_UICR_NS
+#define NRF_VMC NRF_VMC_NS
+#define NRF_VREQCTRL NRF_VREQCTRL_NS
+#define NRF_WDT NRF_WDT_NS
 
 // <<< Use Configuration Wizard in Context Menu >>>\n
 
@@ -111,12 +112,13 @@
 #define NRFX_CLOCK_CONFIG_LF_CAL_ENABLED 0
 #endif
 
-// <q> NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED - Enables two-stage LFXO start procedure
+// <q> NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED - Enables two-stage LFXO start
+// procedure
 
-// <i> If set to a non-zero value, LFRC will be started before LFXO and corresponding
-// <i> event will be generated. It means that CPU will be woken up when LFRC
-// <i> oscillator starts, but user callback will be invoked only after LFXO
-// <i> finally starts.
+// <i> If set to a non-zero value, LFRC will be started before LFXO and
+// corresponding <i> event will be generated. It means that CPU will be woken up
+// when LFRC <i> oscillator starts, but user callback will be invoked only after
+// LFXO <i> finally starts.
 
 #ifndef NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED
 #define NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED 0
@@ -130,7 +132,6 @@
 #ifndef NRFX_CLOCK_CONFIG_HFCLK192M_SRC
 #define NRFX_CLOCK_CONFIG_HFCLK192M_SRC 1
 #endif
-
 
 // <o> NRFX_CLOCK_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority.
 
@@ -292,7 +293,8 @@
 #ifndef NRFX_GPIOTE_ENABLED
 #define NRFX_GPIOTE_ENABLED 0
 #endif
-// <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input pins.
+// <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input
+// pins.
 #ifndef NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS
 #define NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS 1
 #endif
@@ -410,11 +412,9 @@
 #endif
 // <q> NRFX_PRS_BOX_0_ENABLED  - Enables box 0 in the module.
 
-
 #ifndef NRFX_PRS_BOX_0_ENABLED
 #define NRFX_PRS_BOX_0_ENABLED 0
 #endif
-
 
 // <e> NRFX_PRS_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
@@ -550,13 +550,11 @@
 #endif
 // <q> NRFX_RTC0_ENABLED  - Enables RTC0 instance.
 
-
 #ifndef NRFX_RTC0_ENABLED
 #define NRFX_RTC0_ENABLED 0
 #endif
 
 // <q> NRFX_RTC1_ENABLED  - Enables RTC1 instance.
-
 
 #ifndef NRFX_RTC1_ENABLED
 #define NRFX_RTC1_ENABLED 0
@@ -630,7 +628,6 @@
 
 // </e>
 
-
 // <e> NRFX_SPIM_ENABLED - nrfx_spim - SPIM peripheral driver.
 //==========================================================
 #ifndef NRFX_SPIM_ENABLED
@@ -638,11 +635,9 @@
 #endif
 // <q> NRFX_SPIM0_ENABLED  - Enables SPIM0 instance.
 
-
 #ifndef NRFX_SPIM0_ENABLED
 #define NRFX_SPIM0_ENABLED 0
 #endif
-
 
 // <o> NRFX_SPIM_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority.
 
@@ -719,11 +714,9 @@
 #endif
 // <q> NRFX_SPIS0_ENABLED  - Enables SPIS0 instance.
 
-
 #ifndef NRFX_SPIS0_ENABLED
 #define NRFX_SPIS0_ENABLED 0
 #endif
-
 
 // <o> NRFX_SPIS_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority.
 
@@ -795,7 +788,6 @@
 
 // <q> NRFX_SYSTICK_ENABLED  - nrfx_systick - ARM(R) SysTick driver.
 
-
 #ifndef NRFX_SYSTICK_ENABLED
 #define NRFX_SYSTICK_ENABLED 0
 #endif
@@ -830,20 +822,17 @@
 #endif
 // <q> NRFX_TIMER0_ENABLED  - Enables TIMER0 instance.
 
-
 #ifndef NRFX_TIMER0_ENABLED
 #define NRFX_TIMER0_ENABLED 0
 #endif
 
 // <q> NRFX_TIMER1_ENABLED  - Enables TIMER1 instance.
 
-
 #ifndef NRFX_TIMER1_ENABLED
 #define NRFX_TIMER1_ENABLED 0
 #endif
 
 // <q> NRFX_TIMER2_ENABLED  - Enables TIMER2 instance.
-
 
 #ifndef NRFX_TIMER2_ENABLED
 #define NRFX_TIMER2_ENABLED 0
@@ -923,7 +912,6 @@
 #define NRFX_TWIM_ENABLED 0
 #endif
 // <q> NRFX_TWIM0_ENABLED  - Enables TWIM0 instance.
-
 
 #ifndef NRFX_TWIM0_ENABLED
 #define NRFX_TWIM0_ENABLED 0
@@ -1009,10 +997,15 @@
 #define NRFX_TWIS0_ENABLED 0
 #endif
 
+// <q> NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY  - Assumes that any instance would
+// be initialized only once.
 
-// <q> NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY  - Assumes that any instance would be initialized only once.
-
-// <i> Optimization flag. Registers used by TWIS are shared by other peripherals. Normally, during initialization driver tries to clear all registers to known state before doing the initialization itself. This gives initialization safe procedure, no matter when it would be called. If you activate TWIS only once and do never uninitialize it - set this flag to 1 what gives more optimal code.
+// <i> Optimization flag. Registers used by TWIS are shared by other
+// peripherals. Normally, during initialization driver tries to clear all
+// registers to known state before doing the initialization itself. This gives
+// initialization safe procedure, no matter when it would be called. If you
+// activate TWIS only once and do never uninitialize it - set this flag to 1
+// what gives more optimal code.
 
 #ifndef NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY
 #define NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY 0
@@ -1020,7 +1013,10 @@
 
 // <q> NRFX_TWIS_NO_SYNC_MODE  - Removes support for synchronous mode.
 
-// <i> Synchronous mode would be used in specific situations. And it uses some additional code and data memory to safely process state machine by polling it in status functions. If this functionality is not required it may be disabled to free some resources.
+// <i> Synchronous mode would be used in specific situations. And it uses some
+// additional code and data memory to safely process state machine by polling it
+// in status functions. If this functionality is not required it may be disabled
+// to free some resources.
 
 #ifndef NRFX_TWIS_NO_SYNC_MODE
 #define NRFX_TWIS_NO_SYNC_MODE 0
@@ -1178,7 +1174,6 @@
 #define NRFX_WDT_ENABLED 0
 #endif
 // <q> NRFX_WDT0_ENABLED  - Enable WDT0 instance.
-
 
 #ifndef NRFX_WDT0_ENABLED
 #define NRFX_WDT0_ENABLED 0

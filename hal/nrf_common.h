@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -44,12 +44,11 @@ extern "C" {
 
 #ifndef NRF_DECLARE_ONLY
 
-NRF_STATIC_INLINE void nrf_event_readback(void * p_event_reg)
-{
+NRF_STATIC_INLINE void nrf_event_readback(void *p_event_reg) {
 #if NRFX_CHECK(NRFX_EVENT_READBACK_ENABLED) && !defined(NRF51)
-    (void)*((volatile uint32_t *)(p_event_reg));
+  (void)*((volatile uint32_t *)(p_event_reg));
 #else
-    (void)p_event_reg;
+  (void)p_event_reg;
 #endif
 }
 

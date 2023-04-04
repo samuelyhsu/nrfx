@@ -384,5 +384,3 @@ SWI3_IRQHandler
         B .
 
         END
-
-

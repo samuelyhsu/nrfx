@@ -4,7 +4,7 @@
  * @{
  * @ingroup nrfx_twis
  */
-/** @brief 
+/** @brief
  *
  *  Set to 1 to activate.
  *
@@ -30,7 +30,12 @@
 
 /** @brief Assume that any instance would be initialized only once
  *
- * Optimization flag. Registers used by TWIS are shared by other peripherals. Normally, during initialization driver tries to clear all registers to known state before doing the initialization itself. This gives initialization safe procedure, no matter when it would be called. If you activate TWIS only once and do never uninitialize it - set this flag to 1 what gives more optimal code.
+ * Optimization flag. Registers used by TWIS are shared by other peripherals.
+ * Normally, during initialization driver tries to clear all registers to known
+ * state before doing the initialization itself. This gives initialization safe
+ * procedure, no matter when it would be called. If you activate TWIS only once
+ * and do never uninitialize it - set this flag to 1 what gives more optimal
+ * code.
  *
  *  Set to 1 to activate.
  *
@@ -40,7 +45,10 @@
 
 /** @brief Remove support for synchronous mode
  *
- * Synchronous mode would be used in specific situations. And it uses some additional code and data memory to safely process state machine by polling it in status functions. If this functionality is not required it may be disabled to free some resources.
+ * Synchronous mode would be used in specific situations. And it uses some
+ * additional code and data memory to safely process state machine by polling it
+ * in status functions. If this functionality is not required it may be disabled
+ * to free some resources.
  *
  *  Set to 1 to activate.
  *
@@ -117,7 +125,5 @@
  * @note This is an NRF_CONFIG macro.
  */
 #define NRFX_TWIS_CONFIG_DEBUG_COLOR
-
-
 
 /** @} */

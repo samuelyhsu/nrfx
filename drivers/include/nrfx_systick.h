@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -34,8 +34,8 @@
 #ifndef NRFX_SYSTICK_H__
 #define NRFX_SYSTICK_H__
 
-#include <nrfx.h>
 #include <hal/nrf_systick.h>
+#include <nrfx.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,7 +65,7 @@ extern "C" {
  * @sa nrfx_systick_get
  */
 typedef struct {
-    uint32_t time; //!< Registered time value.
+  uint32_t time; //!< Registered time value.
 } nrfx_systick_state_t;
 
 /**
@@ -83,35 +83,41 @@ void nrfx_systick_init(void);
  *
  * @param[out] p_state The pointer to the state variable to be filled.
  */
-void nrfx_systick_get(nrfx_systick_state_t * p_state);
+void nrfx_systick_get(nrfx_systick_state_t *p_state);
 
 /**
- * @brief Function for testing if the current time is higher in relation to the remembered state.
+ * @brief Function for testing if the current time is higher in relation to the
+ * remembered state.
  *
  * @param[in] p_state Remembered state set by @ref nrfx_systick_get
  * @param[in] us      Required time-out.
  *
- * @retval true  The current time is higher than the specified state plus the given time-out.
- * @retval false The current time is lower than the specified state plus the given time-out.
+ * @retval true  The current time is higher than the specified state plus the
+ * given time-out.
+ * @retval false The current time is lower than the specified state plus the
+ * given time-out.
  */
-bool nrfx_systick_test(nrfx_systick_state_t const * p_state, uint32_t us);
+bool nrfx_systick_test(nrfx_systick_state_t const *p_state, uint32_t us);
 
 /**
- * @brief Function for delaying the execution for the specified amount of CPU ticks.
+ * @brief Function for delaying the execution for the specified amount of CPU
+ * ticks.
  *
  * @param[in] ticks Number of CPU ticks when the execution is blocked.
  */
 void nrfx_systick_delay_ticks(uint32_t ticks);
 
 /**
- * @brief Function for delaying the execution for the specified amount of microseconds.
+ * @brief Function for delaying the execution for the specified amount of
+ * microseconds.
  *
  * @param[in] us Number of microseconds when the execution is blocked.
  */
 void nrfx_systick_delay_us(uint32_t us);
 
 /**
- * @brief Function for delaying the execution for the specified amount of milliseconds.
+ * @brief Function for delaying the execution for the specified amount of
+ * milliseconds.
  *
  * This delay function removes the limits of the highest possible delay value.
  *

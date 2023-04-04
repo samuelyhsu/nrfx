@@ -83,6 +83,4 @@
  */
 #define NRFX_I2S_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

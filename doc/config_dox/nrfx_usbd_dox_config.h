@@ -41,16 +41,16 @@
  */
 #define NRFX_USBD_CONFIG_DMASCHEDULER_ISO_BOOST
 
-/** @brief Respond to an IN token on ISO IN endpoint with ZLP when no data is ready
+/** @brief Respond to an IN token on ISO IN endpoint with ZLP when no data is
+ * ready
  *
- * If set, ISO IN endpoint will respond to an IN token with ZLP when no data is ready to be sent.
- * Else, there will be no response.
+ * If set, ISO IN endpoint will respond to an IN token with ZLP when no data is
+ * ready to be sent. Else, there will be no response.
  *
  *  Set to 1 to activate.
  *
  * @note This is an NRF_CONFIG macro.
  */
 #define NRFX_USBD_CONFIG_ISO_IN_ZLP
-
 
 /** @} */

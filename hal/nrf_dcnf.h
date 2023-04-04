@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -44,150 +44,148 @@ extern "C" {
  * @defgroup nrf_dcnf_hal DCNF HAL
  * @{
  * @ingroup nrf_dcnf
- * @brief   Hardware access layer for managing the Domain Configuration (DCNF) module.
+ * @brief   Hardware access layer for managing the Domain Configuration (DCNF)
+ * module.
  */
 
 /**
  * @brief Function for getting the value of the CPU ID.
  *
- * CPU ID can be used to identify the specific CPU in the multi-core environment.
+ * CPU ID can be used to identify the specific CPU in the multi-core
+ * environment.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  *
  * @return CPU ID.
  */
-NRF_STATIC_INLINE uint32_t nrf_dcnf_cpuid_get(NRF_DCNF_Type const * p_reg);
+NRF_STATIC_INLINE uint32_t nrf_dcnf_cpuid_get(NRF_DCNF_Type const *p_reg);
 
 #if defined(DCNF_EXTPERI_PROTECT_SLAVE0_Msk)
 /**
- * @brief Function for configuring the control access to local peripheral memory regions.
- *        Intended for external master connected to specified AMLI master port.
+ * @brief Function for configuring the control access to local peripheral memory
+ * regions. Intended for external master connected to specified AMLI master
+ * port.
  *
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
  * @param[in] port_idx Index of the master port to configure.
- * @param[in] mask     Mask of the AHB slaves to be protected from being accessed
- *                     by external AHB masters.
+ * @param[in] mask     Mask of the AHB slaves to be protected from being
+ * accessed by external AHB masters.
  */
-NRF_STATIC_INLINE void nrf_dcnf_peripheral_access_set(NRF_DCNF_Type * p_reg,
-                                                      uint8_t         port_idx,
-                                                      uint32_t        mask);
+NRF_STATIC_INLINE void nrf_dcnf_peripheral_access_set(NRF_DCNF_Type *p_reg,
+                                                      uint8_t port_idx,
+                                                      uint32_t mask);
 
 /**
- * @brief Function for getting the configuration of control access to local peripheral
- *        memory regions. Intended for external master connected to specified AMLI master port.
+ * @brief Function for getting the configuration of control access to local
+ * peripheral memory regions. Intended for external master connected to
+ * specified AMLI master port.
  *
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
  * @param[in] port_idx Index of the master port to configure.
  *
  * @return Mask of the AHB slaves that are currently protected.
  */
-NRF_STATIC_INLINE uint32_t nrf_dcnf_peripheral_access_get(NRF_DCNF_Type const * p_reg,
-                                                          uint8_t               port_idx);
+NRF_STATIC_INLINE uint32_t
+nrf_dcnf_peripheral_access_get(NRF_DCNF_Type const *p_reg, uint8_t port_idx);
 #endif // defined(DCNF_EXTPERI_PROTECT_SLAVE0_Msk)
 
 #if defined(DCNF_EXTRAM_PROTECT_SLAVE0_Msk)
 /**
- * @brief Function for configuring the control access to local RAM memory regions.
- *        Intended for external master connected to specified AMLI master port.
+ * @brief Function for configuring the control access to local RAM memory
+ * regions. Intended for external master connected to specified AMLI master
+ * port.
  *
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
  * @param[in] port_idx Index of the master port to configure.
- * @param[in] mask     Mask of the AHB slaves to be protected from being accessed
- *                     by external AHB masters.
+ * @param[in] mask     Mask of the AHB slaves to be protected from being
+ * accessed by external AHB masters.
  */
-NRF_STATIC_INLINE void nrf_dcnf_ram_access_set(NRF_DCNF_Type * p_reg,
-                                               uint8_t         port_idx,
-                                               uint32_t        mask);
+NRF_STATIC_INLINE void nrf_dcnf_ram_access_set(NRF_DCNF_Type *p_reg,
+                                               uint8_t port_idx, uint32_t mask);
 
 /**
  * @brief Function for getting the configuration of control access to local RAM
- *        memory regions. Intended for external master connected to specified AMLI master port.
+ *        memory regions. Intended for external master connected to specified
+ * AMLI master port.
  *
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
  * @param[in] port_idx Index of the master port to configure.
  *
  * @return Mask of the AHB slaves that are currently protected.
  */
-NRF_STATIC_INLINE uint32_t nrf_dcnf_ram_access_get(NRF_DCNF_Type const * p_reg,
-                                                   uint8_t               port_idx);
+NRF_STATIC_INLINE uint32_t nrf_dcnf_ram_access_get(NRF_DCNF_Type const *p_reg,
+                                                   uint8_t port_idx);
 #endif // defined(DCNF_EXTRAM_PROTECT_SLAVE0_Msk)
 
 #if defined(DCNF_EXTCODE_PROTECT_SLAVE0_Msk)
 /**
- * @brief Function for configuring the control access to local code memory regions.
- *        Intended for external master connected to specified AMLI master port.
+ * @brief Function for configuring the control access to local code memory
+ * regions. Intended for external master connected to specified AMLI master
+ * port.
  *
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
  * @param[in] port_idx Index of the master port to configure.
- * @param[in] mask     Mask of the AHB slaves to be protected from being accessed
- *                     by external AHB masters.
+ * @param[in] mask     Mask of the AHB slaves to be protected from being
+ * accessed by external AHB masters.
  */
-NRF_STATIC_INLINE void nrf_dcnf_code_access_set(NRF_DCNF_Type * p_reg,
-                                                uint8_t         port_idx,
-                                                uint32_t        mask);
+NRF_STATIC_INLINE void
+nrf_dcnf_code_access_set(NRF_DCNF_Type *p_reg, uint8_t port_idx, uint32_t mask);
 
 /**
  * @brief Function for getting the configuration of control access to local code
- *        memory regions. Intended for external master connected to specified AMLI master port.
+ *        memory regions. Intended for external master connected to specified
+ * AMLI master port.
  *
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
  * @param[in] port_idx Index of the master port to configure.
  *
  * @return Mask of the AHB slaves that are currently protected.
  */
-NRF_STATIC_INLINE uint32_t nrf_dcnf_code_access_get(NRF_DCNF_Type const * p_reg,
-                                                    uint8_t               port_idx);
+NRF_STATIC_INLINE uint32_t nrf_dcnf_code_access_get(NRF_DCNF_Type const *p_reg,
+                                                    uint8_t port_idx);
 #endif // defined(DCNF_EXTCODE_PROTECT_SLAVE0_Msk)
 
 #ifndef NRF_DECLARE_ONLY
 
-NRF_STATIC_INLINE uint32_t nrf_dcnf_cpuid_get(NRF_DCNF_Type const * p_reg)
-{
-    return p_reg->CPUID;
+NRF_STATIC_INLINE uint32_t nrf_dcnf_cpuid_get(NRF_DCNF_Type const *p_reg) {
+  return p_reg->CPUID;
 }
 
 #if defined(DCNF_EXTPERI_PROTECT_SLAVE0_Msk)
-NRF_STATIC_INLINE void nrf_dcnf_peripheral_access_set(NRF_DCNF_Type * p_reg,
-                                                      uint8_t         port_idx,
-                                                      uint32_t        mask)
-{
-    p_reg->EXTPERI[port_idx].PROTECT = mask;
+NRF_STATIC_INLINE void nrf_dcnf_peripheral_access_set(NRF_DCNF_Type *p_reg,
+                                                      uint8_t port_idx,
+                                                      uint32_t mask) {
+  p_reg->EXTPERI[port_idx].PROTECT = mask;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_dcnf_peripheral_access_get(NRF_DCNF_Type const * p_reg,
-                                                          uint8_t               port_idx)
-{
-    return p_reg->EXTPERI[port_idx].PROTECT;
+NRF_STATIC_INLINE uint32_t
+nrf_dcnf_peripheral_access_get(NRF_DCNF_Type const *p_reg, uint8_t port_idx) {
+  return p_reg->EXTPERI[port_idx].PROTECT;
 }
 #endif
 
 #if defined(DCNF_EXTRAM_PROTECT_SLAVE0_Msk)
-NRF_STATIC_INLINE void nrf_dcnf_ram_access_set(NRF_DCNF_Type * p_reg,
-                                               uint8_t         port_idx,
-                                               uint32_t        mask)
-{
-    p_reg->EXTRAM[port_idx].PROTECT = mask;
+NRF_STATIC_INLINE void
+nrf_dcnf_ram_access_set(NRF_DCNF_Type *p_reg, uint8_t port_idx, uint32_t mask) {
+  p_reg->EXTRAM[port_idx].PROTECT = mask;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_dcnf_ram_access_get(NRF_DCNF_Type const * p_reg,
-                                                   uint8_t               port_idx)
-{
-    return p_reg->EXTRAM[port_idx].PROTECT;
+NRF_STATIC_INLINE uint32_t nrf_dcnf_ram_access_get(NRF_DCNF_Type const *p_reg,
+                                                   uint8_t port_idx) {
+  return p_reg->EXTRAM[port_idx].PROTECT;
 }
 #endif
 
 #if defined(DCNF_EXTCODE_PROTECT_SLAVE0_Msk)
-NRF_STATIC_INLINE void nrf_dcnf_code_access_set(NRF_DCNF_Type * p_reg,
-                                                uint8_t         port_idx,
-                                                uint32_t        mask)
-{
-    p_reg->EXTCODE[port_idx].PROTECT = mask;
+NRF_STATIC_INLINE void nrf_dcnf_code_access_set(NRF_DCNF_Type *p_reg,
+                                                uint8_t port_idx,
+                                                uint32_t mask) {
+  p_reg->EXTCODE[port_idx].PROTECT = mask;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_dcnf_code_access_get(NRF_DCNF_Type const * p_reg,
-                                                    uint8_t               port_idx)
-{
-    return p_reg->EXTCODE[port_idx].PROTECT;
+NRF_STATIC_INLINE uint32_t nrf_dcnf_code_access_get(NRF_DCNF_Type const *p_reg,
+                                                    uint8_t port_idx) {
+  return p_reg->EXTCODE[port_idx].PROTECT;
 }
 #endif
 

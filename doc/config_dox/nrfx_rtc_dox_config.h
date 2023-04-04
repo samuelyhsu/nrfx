@@ -4,7 +4,7 @@
  * @{
  * @ingroup nrfx_rtc
  */
-/** @brief 
+/** @brief
  *
  *  Set to 1 to activate.
  *
@@ -106,7 +106,5 @@
  * @note This is an NRF_CONFIG macro.
  */
 #define NRFX_RTC_CONFIG_DEBUG_COLOR
-
-
 
 /** @} */

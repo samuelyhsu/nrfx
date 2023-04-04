@@ -452,5 +452,3 @@ FPU_IRQHandler
         B .
 
         END
-
-

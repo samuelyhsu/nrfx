@@ -28,5 +28,4 @@
  */
 #define NRFX_QSPI_CONFIG_IRQ_PRIORITY
 
-
 /** @} */

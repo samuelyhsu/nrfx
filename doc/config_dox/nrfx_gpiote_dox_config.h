@@ -90,6 +90,4 @@
  */
 #define NRFX_GPIOTE_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

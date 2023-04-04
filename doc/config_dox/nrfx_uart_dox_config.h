@@ -90,6 +90,4 @@
  */
 #define NRFX_UART_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

@@ -83,6 +83,4 @@
  */
 #define NRFX_PDM_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

@@ -83,6 +83,4 @@
  */
 #define NRFX_LPCOMP_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

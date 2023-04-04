@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -35,7 +35,8 @@
 #define NRFX_CONFIG_NRF51_H__
 
 #ifndef NRFX_CONFIG_H__
-#error "This file should not be included directly. Include nrfx_config.h instead."
+#error                                                                         \
+    "This file should not be included directly. Include nrfx_config.h instead."
 #endif
 
 // <<< Use Configuration Wizard in Context Menu >>>\n
@@ -132,12 +133,13 @@
 #define NRFX_CLOCK_CONFIG_LF_CAL_ENABLED 0
 #endif
 
-// <q> NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED - Enables two-stage LFXO start procedure
+// <q> NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED - Enables two-stage LFXO start
+// procedure
 
-// <i> If set to a non-zero value, LFRC will be started before LFXO and corresponding
-// <i> event will be generated. It means that CPU will be woken up when LFRC
-// <i> oscillator starts, but user callback will be invoked only after LFXO
-// <i> finally starts.
+// <i> If set to a non-zero value, LFRC will be started before LFXO and
+// corresponding <i> event will be generated. It means that CPU will be woken up
+// when LFRC <i> oscillator starts, but user callback will be invoked only after
+// LFXO <i> finally starts.
 
 #ifndef NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED
 #define NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED 0
@@ -212,7 +214,8 @@
 #ifndef NRFX_GPIOTE_ENABLED
 #define NRFX_GPIOTE_ENABLED 0
 #endif
-// <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input pins
+// <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input
+// pins
 #ifndef NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS
 #define NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS 1
 #endif
@@ -442,13 +445,11 @@
 #endif
 // <q> NRFX_PRS_BOX_0_ENABLED  - Enables box 0 in the module.
 
-
 #ifndef NRFX_PRS_BOX_0_ENABLED
 #define NRFX_PRS_BOX_0_ENABLED 0
 #endif
 
 // <q> NRFX_PRS_BOX_1_ENABLED  - Enables box 1 in the module.
-
 
 #ifndef NRFX_PRS_BOX_1_ENABLED
 #define NRFX_PRS_BOX_1_ENABLED 0
@@ -735,7 +736,6 @@
 #endif
 // <q> NRFX_SPIS1_ENABLED  - Enable SPIS1 instance
 
-
 #ifndef NRFX_SPIS1_ENABLED
 #define NRFX_SPIS1_ENABLED 0
 #endif
@@ -811,13 +811,11 @@
 #endif
 // <q> NRFX_SPI0_ENABLED  - Enable SPI0 instance
 
-
 #ifndef NRFX_SPI0_ENABLED
 #define NRFX_SPI0_ENABLED 0
 #endif
 
 // <q> NRFX_SPI1_ENABLED  - Enable SPI1 instance
-
 
 #ifndef NRFX_SPI1_ENABLED
 #define NRFX_SPI1_ENABLED 0

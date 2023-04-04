@@ -79,6 +79,4 @@
  */
 #define NRFX_ADC_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

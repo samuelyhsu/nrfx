@@ -82,6 +82,4 @@
  */
 #define NRFX_RNG_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

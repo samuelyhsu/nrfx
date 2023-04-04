@@ -102,6 +102,4 @@
  */
 #define NRFX_CLOCK_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -34,8 +34,8 @@
 #ifndef NRFX_USBREG_H__
 #define NRFX_USBREG_H__
 
-#include <nrfx.h>
 #include <hal/nrf_usbreg.h>
+#include <nrfx.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,9 +51,10 @@ extern "C" {
 
 /** @brief Events from USB power system */
 typedef enum {
-    NRFX_USBREG_EVT_DETECTED, /**< USB power detected on the connector (plugged in). */
-    NRFX_USBREG_EVT_REMOVED,  /**< USB power removed from the connector. */
-    NRFX_USBREG_EVT_READY     /**< USB power regulator ready. */
+  NRFX_USBREG_EVT_DETECTED, /**< USB power detected on the connector (plugged
+                               in). */
+  NRFX_USBREG_EVT_REMOVED,  /**< USB power removed from the connector. */
+  NRFX_USBREG_EVT_READY     /**< USB power regulator ready. */
 } nrfx_usbreg_evt_t;
 
 /**
@@ -65,9 +66,11 @@ typedef enum {
  * Organized this way that higher power state has higher numeric value
  */
 typedef enum {
-    NRFX_USBREG_STATE_DISCONNECTED, /**< No power on USB lines detected. */
-    NRFX_USBREG_STATE_CONNECTED,    /**< The USB power is detected, but USB power regulator is not ready. */
-    NRFX_USBREG_STATE_READY         /**< From the power viewpoint, USB is ready for working. */
+  NRFX_USBREG_STATE_DISCONNECTED, /**< No power on USB lines detected. */
+  NRFX_USBREG_STATE_CONNECTED,    /**< The USB power is detected, but USB power
+                                     regulator is not ready. */
+  NRFX_USBREG_STATE_READY /**< From the power viewpoint, USB is ready for
+                             working. */
 } nrfx_usbreg_state_t;
 
 /**
@@ -82,10 +85,9 @@ typedef void (*nrfx_usbreg_event_handler_t)(nrfx_usbreg_evt_t event);
  *
  * Configuration used to enable and configure USB power event handling.
  */
-typedef struct
-{
-    nrfx_usbreg_event_handler_t handler;      //!< Event processing.
-    uint8_t                     irq_priority; //!< Priority of the USBREG interrupt.
+typedef struct {
+  nrfx_usbreg_event_handler_t handler; //!< Event processing.
+  uint8_t irq_priority;                //!< Priority of the USBREG interrupt.
 } nrfx_usbreg_config_t;
 
 /**
@@ -127,18 +129,15 @@ void nrfx_usbreg_uninit(void);
 NRFX_STATIC_INLINE nrfx_usbreg_state_t nrfx_usbreg_usbstatus_get(void);
 
 #ifndef NRFX_DECLARE_ONLY
-NRFX_STATIC_INLINE nrfx_usbreg_state_t nrfx_usbreg_usbstatus_get(void)
-{
-    uint32_t status = nrf_usbreg_status_get(NRF_USBREGULATOR);
-    if (0 == (status & NRF_USBREG_STATUS_VBUSDETECT_MASK))
-    {
-        return NRFX_USBREG_STATE_DISCONNECTED;
-    }
-    if (0 == (status & NRF_USBREG_STATUS_OUTPUTRDY_MASK))
-    {
-        return NRFX_USBREG_STATE_CONNECTED;
-    }
-    return NRFX_USBREG_STATE_READY;
+NRFX_STATIC_INLINE nrfx_usbreg_state_t nrfx_usbreg_usbstatus_get(void) {
+  uint32_t status = nrf_usbreg_status_get(NRF_USBREGULATOR);
+  if (0 == (status & NRF_USBREG_STATUS_VBUSDETECT_MASK)) {
+    return NRFX_USBREG_STATE_DISCONNECTED;
+  }
+  if (0 == (status & NRF_USBREG_STATUS_OUTPUTRDY_MASK)) {
+    return NRFX_USBREG_STATE_CONNECTED;
+  }
+  return NRFX_USBREG_STATE_READY;
 }
 #endif // NRFX_DECLARE_ONLY
 

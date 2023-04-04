@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -34,10 +34,10 @@
 #ifndef NRFX_H__
 #define NRFX_H__
 
-#include <nrfx_config.h>
 #include <drivers/nrfx_common.h>
-#include <nrfx_glue.h>
-#include <hal/nrf_common.h>
 #include <drivers/nrfx_errors.h>
+#include <hal/nrf_common.h>
+#include <nrfx_config.h>
+#include <nrfx_glue.h>
 
 #endif // NRFX_H__

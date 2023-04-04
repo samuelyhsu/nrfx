@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -55,16 +55,18 @@ extern "C" {
  *
  * @return Code memory page size in bytes.
  */
-NRF_STATIC_INLINE uint32_t nrf_ficr_codepagesize_get(NRF_FICR_Type const * p_reg);
+NRF_STATIC_INLINE uint32_t
+nrf_ficr_codepagesize_get(NRF_FICR_Type const *p_reg);
 
 /**
- * @brief Function for getting the size of the code memory rendered as number of pages.
+ * @brief Function for getting the size of the code memory rendered as number of
+ * pages.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  *
  * @return Code memory size rendered as number of pages.
  */
-NRF_STATIC_INLINE uint32_t nrf_ficr_codesize_get(NRF_FICR_Type const * p_reg);
+NRF_STATIC_INLINE uint32_t nrf_ficr_codesize_get(NRF_FICR_Type const *p_reg);
 
 /**
  * @brief Function for getting the unique device identifier.
@@ -74,66 +76,67 @@ NRF_STATIC_INLINE uint32_t nrf_ficr_codesize_get(NRF_FICR_Type const * p_reg);
  *
  * @return Unique device identifier.
  */
-NRF_STATIC_INLINE uint32_t nrf_ficr_deviceid_get(NRF_FICR_Type const * p_reg, uint32_t reg_id);
+NRF_STATIC_INLINE uint32_t nrf_ficr_deviceid_get(NRF_FICR_Type const *p_reg,
+                                                 uint32_t reg_id);
 
 #if defined(FICR_NFC_TAGHEADER0_MFGID_Msk) || defined(__NRFX_DOXYGEN__)
 /**
  * @brief Function for getting the default header values for the NFC tag.
  *
- * @param[in] p_reg        Pointer to the structure of registers of the peripheral.
+ * @param[in] p_reg        Pointer to the structure of registers of the
+ * peripheral.
  * @param[in] tagheader_id Tag header index.
  *
- * @return The default header value of the NFC tag for the specified header index.
+ * @return The default header value of the NFC tag for the specified header
+ * index.
  */
-NRF_STATIC_INLINE uint32_t nrf_ficr_nfc_tagheader_get(NRF_FICR_Type const * p_reg,
-                                                      uint32_t              tagheader_id);
+NRF_STATIC_INLINE uint32_t
+nrf_ficr_nfc_tagheader_get(NRF_FICR_Type const *p_reg, uint32_t tagheader_id);
 #endif // defined(FICR_NFC_TAGHEADER0_MFGID_Msk) || defined(__NRFX_DOXYGEN__)
 
 #ifndef NRF_DECLARE_ONLY
 
-NRF_STATIC_INLINE uint32_t nrf_ficr_codepagesize_get(NRF_FICR_Type const * p_reg)
-{
+NRF_STATIC_INLINE uint32_t
+nrf_ficr_codepagesize_get(NRF_FICR_Type const *p_reg) {
 #if defined(FICR_INFO_CODEPAGESIZE_CODEPAGESIZE_Msk)
-    return p_reg->INFO.CODEPAGESIZE;
+  return p_reg->INFO.CODEPAGESIZE;
 #else
-    return p_reg->CODEPAGESIZE;
+  return p_reg->CODEPAGESIZE;
 #endif
 }
 
-NRF_STATIC_INLINE uint32_t nrf_ficr_codesize_get(NRF_FICR_Type const * p_reg)
-{
+NRF_STATIC_INLINE uint32_t nrf_ficr_codesize_get(NRF_FICR_Type const *p_reg) {
 #if defined(FICR_INFO_CODESIZE_CODESIZE_Msk)
-    return p_reg->INFO.CODESIZE;
+  return p_reg->INFO.CODESIZE;
 #else
-    return p_reg->CODESIZE;
+  return p_reg->CODESIZE;
 #endif
 }
 
-NRF_STATIC_INLINE uint32_t nrf_ficr_deviceid_get(NRF_FICR_Type const * p_reg, uint32_t reg_id)
-{
+NRF_STATIC_INLINE uint32_t nrf_ficr_deviceid_get(NRF_FICR_Type const *p_reg,
+                                                 uint32_t reg_id) {
 #if defined(FICR_INFO_DEVICEID_DEVICEID_Msk)
-    return p_reg->INFO.DEVICEID[reg_id];
+  return p_reg->INFO.DEVICEID[reg_id];
 #else
-    return p_reg->DEVICEID[reg_id];
+  return p_reg->DEVICEID[reg_id];
 #endif
 }
 
 #if defined(FICR_NFC_TAGHEADER0_MFGID_Msk)
-NRF_STATIC_INLINE uint32_t nrf_ficr_nfc_tagheader_get(NRF_FICR_Type const * p_reg,
-                                                      uint32_t              tagheader_id)
-{
-    switch(tagheader_id) {
-        case 0:
-            return p_reg->NFC.TAGHEADER0;
-        case 1:
-            return p_reg->NFC.TAGHEADER1;
-        case 2:
-            return p_reg->NFC.TAGHEADER2;
-        case 3:
-            return p_reg->NFC.TAGHEADER3;
-        default:
-            return 0;
-    }
+NRF_STATIC_INLINE uint32_t
+nrf_ficr_nfc_tagheader_get(NRF_FICR_Type const *p_reg, uint32_t tagheader_id) {
+  switch (tagheader_id) {
+  case 0:
+    return p_reg->NFC.TAGHEADER0;
+  case 1:
+    return p_reg->NFC.TAGHEADER1;
+  case 2:
+    return p_reg->NFC.TAGHEADER2;
+  case 3:
+    return p_reg->NFC.TAGHEADER3;
+  default:
+    return 0;
+  }
 }
 #endif // defined(FICR_NFC_TAGHEADER0_MFGID_Msk)
 

@@ -306,5 +306,3 @@ SWI5_IRQHandler
         B .
 
         END
-
-

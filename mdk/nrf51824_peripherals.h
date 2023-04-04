@@ -32,11 +32,9 @@ POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-
 /* This file is deprecated */
 #ifndef _NRF51824_PERIPHERALS_H
 #define _NRF51824_PERIPHERALS_H
-
 
 /* Clock Peripheral */
 #define CLOCK_PRESENT
@@ -167,5 +165,4 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #define LPCOMP_REFSEL_RESOLUTION 8
 
-
-#endif      // _NRF51824_PERIPHERALS_H
+#endif // _NRF51824_PERIPHERALS_H

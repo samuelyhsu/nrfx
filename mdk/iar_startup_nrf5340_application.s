@@ -605,5 +605,3 @@ CRYPTOCELL_IRQHandler
         B .
 
         END
-
-

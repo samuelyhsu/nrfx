@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -34,8 +34,8 @@
 #ifndef NRFX_DPPI_H__
 #define NRFX_DPPI_H__
 
-#include <nrfx.h>
 #include <hal/nrf_dppi.h>
+#include <nrfx.h>
 
 /**
  * @defgroup nrfx_dppi DPPI allocator
@@ -60,12 +60,13 @@ void nrfx_dppi_free(void);
  *       macros. No further synchronization mechanism is needed, provided the
  *       macros are properly implemented (see @ref nrfx_glue).
  *
- * @param[out] p_channel Pointer to the DPPI channel number that has been allocated.
+ * @param[out] p_channel Pointer to the DPPI channel number that has been
+ * allocated.
  *
  * @retval NRFX_SUCCESS      The channel was successfully allocated.
  * @retval NRFX_ERROR_NO_MEM There is no available channel to be used.
  */
-nrfx_err_t nrfx_dppi_channel_alloc(uint8_t * p_channel);
+nrfx_err_t nrfx_dppi_channel_alloc(uint8_t *p_channel);
 
 /**
  * @brief Function for freeing a DPPI channel.
@@ -112,12 +113,13 @@ nrfx_err_t nrfx_dppi_channel_disable(uint8_t channel);
  *       macros. No further synchronization mechanism is needed, provided the
  *       macros are properly implemented (see @ref nrfx_glue).
  *
- * @param[out] p_group Pointer to the DPPI channel group that has been allocated.
+ * @param[out] p_group Pointer to the DPPI channel group that has been
+ * allocated.
  *
  * @retval NRFX_SUCCESS      The channel group was successfully allocated.
  * @retval NRFX_ERROR_NO_MEM There is no available channel group to be used.
  */
-nrfx_err_t nrfx_dppi_group_alloc(nrf_dppi_channel_group_t * p_group);
+nrfx_err_t nrfx_dppi_group_alloc(nrf_dppi_channel_group_t *p_group);
 
 /**
  * @brief Function for freeing a DPPI channel group.
@@ -141,13 +143,14 @@ nrfx_err_t nrfx_dppi_group_free(nrf_dppi_channel_group_t group);
  * @param[in] channel DPPI channel to be added.
  * @param[in] group   Channel group in which to include the channel.
  *
- * @warning Channel group configuration can be modified only if subscriptions for tasks
- *          associated with this group are disabled.
+ * @warning Channel group configuration can be modified only if subscriptions
+ * for tasks associated with this group are disabled.
  *
  * @retval NRFX_SUCCESS             The channel was successfully included.
- * @retval NRFX_ERROR_INVALID_PARAM The specified group or channel is not allocated.
+ * @retval NRFX_ERROR_INVALID_PARAM The specified group or channel is not
+ * allocated.
  */
-nrfx_err_t nrfx_dppi_channel_include_in_group(uint8_t                  channel,
+nrfx_err_t nrfx_dppi_channel_include_in_group(uint8_t channel,
                                               nrf_dppi_channel_group_t group);
 
 /**
@@ -156,13 +159,14 @@ nrfx_err_t nrfx_dppi_channel_include_in_group(uint8_t                  channel,
  * @param[in] channel DPPI channel to be removed.
  * @param[in] group   Channel group from which to remove the channel.
  *
- * @warning Channel group configuration can be modified only if subscriptions for tasks
- *          associated with this group are disabled.
+ * @warning Channel group configuration can be modified only if subscriptions
+ * for tasks associated with this group are disabled.
  *
  * @retval NRFX_SUCCESS             The channel was successfully removed.
- * @retval NRFX_ERROR_INVALID_PARAM The specified group or channel is not allocated.
+ * @retval NRFX_ERROR_INVALID_PARAM The specified group or channel is not
+ * allocated.
  */
-nrfx_err_t nrfx_dppi_channel_remove_from_group(uint8_t                  channel,
+nrfx_err_t nrfx_dppi_channel_remove_from_group(uint8_t channel,
                                                nrf_dppi_channel_group_t group);
 
 /**
@@ -170,8 +174,8 @@ nrfx_err_t nrfx_dppi_channel_remove_from_group(uint8_t                  channel,
  *
  * @param[in] group Channel group to be cleared.
  *
- * @warning Channel group configuration can be modified only if subscriptions for tasks
- *          associated with this group are disabled.
+ * @warning Channel group configuration can be modified only if subscriptions
+ * for tasks associated with this group are disabled.
  *
  * @retval NRFX_SUCCESS             The group was successfully cleared.
  * @retval NRFX_ERROR_INVALID_PARAM The specified group is not allocated.

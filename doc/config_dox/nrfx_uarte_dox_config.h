@@ -97,6 +97,4 @@
  */
 #define NRFX_UARTE_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

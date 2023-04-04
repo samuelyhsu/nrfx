@@ -93,6 +93,4 @@
  */
 #define NRFX_WDT_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

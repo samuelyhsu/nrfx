@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -44,30 +44,35 @@ extern "C" {
  * @defgroup nrf_aar_hal AAR HAL
  * @{
  * @ingroup nrf_aar
- * @brief   Hardware access layer for managing the Accelerated Address Resolver (AAR) peripheral.
+ * @brief   Hardware access layer for managing the Accelerated Address Resolver
+ * (AAR) peripheral.
  */
 
 /** @brief AAR events. */
-typedef enum
-{
-    NRF_AAR_EVENT_END         = offsetof(NRF_AAR_Type, EVENTS_END),         ///< Address resolution procedure complete.
-    NRF_AAR_EVENT_RESOLVED    = offsetof(NRF_AAR_Type, EVENTS_RESOLVED),    ///< Address resolved.
-    NRF_AAR_EVENT_NOTRESOLVED = offsetof(NRF_AAR_Type, EVENTS_NOTRESOLVED), ///< Address not resolved.
+typedef enum {
+  NRF_AAR_EVENT_END = offsetof(
+      NRF_AAR_Type, EVENTS_END), ///< Address resolution procedure complete.
+  NRF_AAR_EVENT_RESOLVED =
+      offsetof(NRF_AAR_Type, EVENTS_RESOLVED), ///< Address resolved.
+  NRF_AAR_EVENT_NOTRESOLVED =
+      offsetof(NRF_AAR_Type, EVENTS_NOTRESOLVED), ///< Address not resolved.
 } nrf_aar_event_t;
 
 /** @brief AAR interrupts. */
-typedef enum
-{
-    NRF_AAR_INT_END_MASK         = AAR_INTENSET_END_Msk,         ///< Interrupt on END event.
-    NRF_AAR_INT_RESOLVED_MASK    = AAR_INTENSET_RESOLVED_Msk,    ///< Interrupt on RESOLVED event.
-    NRF_AAR_INT_NOTRESOLVED_MASK = AAR_INTENSET_NOTRESOLVED_Msk, ///< Interrupt on NOTRESOLVED event.
+typedef enum {
+  NRF_AAR_INT_END_MASK = AAR_INTENSET_END_Msk, ///< Interrupt on END event.
+  NRF_AAR_INT_RESOLVED_MASK =
+      AAR_INTENSET_RESOLVED_Msk, ///< Interrupt on RESOLVED event.
+  NRF_AAR_INT_NOTRESOLVED_MASK =
+      AAR_INTENSET_NOTRESOLVED_Msk, ///< Interrupt on NOTRESOLVED event.
 } nrf_aar_int_mask_t;
 
 /** @brief AAR tasks. */
-typedef enum
-{
-    NRF_AAR_TASK_START = offsetof(NRF_AAR_Type, TASKS_START), ///< Start address resolution procedure.
-    NRF_AAR_TASK_STOP  = offsetof(NRF_AAR_Type, TASKS_STOP),  ///< Stop address resolution procedure.
+typedef enum {
+  NRF_AAR_TASK_START = offsetof(
+      NRF_AAR_Type, TASKS_START), ///< Start address resolution procedure.
+  NRF_AAR_TASK_STOP = offsetof(
+      NRF_AAR_Type, TASKS_STOP), ///< Stop address resolution procedure.
 } nrf_aar_task_t;
 
 /**
@@ -79,8 +84,8 @@ typedef enum
  * @retval true  Event is set.
  * @retval false Event is not set.
  */
-NRF_STATIC_INLINE bool nrf_aar_event_check(NRF_AAR_Type const * p_reg,
-                                           nrf_aar_event_t      event);
+NRF_STATIC_INLINE bool nrf_aar_event_check(NRF_AAR_Type const *p_reg,
+                                           nrf_aar_event_t event);
 
 /**
  * @brief Function for clearing the specified AAR event.
@@ -88,7 +93,7 @@ NRF_STATIC_INLINE bool nrf_aar_event_check(NRF_AAR_Type const * p_reg,
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] event Event to be cleared.
  */
-NRF_STATIC_INLINE void nrf_aar_event_clear(NRF_AAR_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_aar_event_clear(NRF_AAR_Type *p_reg,
                                            nrf_aar_event_t event);
 
 /**
@@ -99,8 +104,8 @@ NRF_STATIC_INLINE void nrf_aar_event_clear(NRF_AAR_Type *  p_reg,
  *
  * @return Address of the specified event register.
  */
-NRF_STATIC_INLINE uint32_t nrf_aar_event_address_get(NRF_AAR_Type const * p_reg,
-                                                     nrf_aar_event_t      event);
+NRF_STATIC_INLINE uint32_t nrf_aar_event_address_get(NRF_AAR_Type const *p_reg,
+                                                     nrf_aar_event_t event);
 
 /**
  * @brief Function for enabling the specified interrupts.
@@ -108,7 +113,7 @@ NRF_STATIC_INLINE uint32_t nrf_aar_event_address_get(NRF_AAR_Type const * p_reg,
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of interrupts to be enabled.
  */
-NRF_STATIC_INLINE void nrf_aar_int_enable(NRF_AAR_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_aar_int_enable(NRF_AAR_Type *p_reg, uint32_t mask);
 
 /**
  * @brief Function for checking if the specified interrupts are enabled.
@@ -118,7 +123,8 @@ NRF_STATIC_INLINE void nrf_aar_int_enable(NRF_AAR_Type * p_reg, uint32_t mask);
  *
  * @return Mask of enabled interrupts.
  */
-NRF_STATIC_INLINE uint32_t nrf_aar_int_enable_check(NRF_AAR_Type const * p_reg, uint32_t mask);
+NRF_STATIC_INLINE uint32_t nrf_aar_int_enable_check(NRF_AAR_Type const *p_reg,
+                                                    uint32_t mask);
 
 /**
  * @brief Function for disabling the specified interrupts.
@@ -126,7 +132,7 @@ NRF_STATIC_INLINE uint32_t nrf_aar_int_enable_check(NRF_AAR_Type const * p_reg, 
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] mask  Mask of interrupts to be disabled.
  */
-NRF_STATIC_INLINE void nrf_aar_int_disable(NRF_AAR_Type * p_reg, uint32_t mask);
+NRF_STATIC_INLINE void nrf_aar_int_disable(NRF_AAR_Type *p_reg, uint32_t mask);
 
 /**
  * @brief Function for starting an AAR task.
@@ -134,7 +140,8 @@ NRF_STATIC_INLINE void nrf_aar_int_disable(NRF_AAR_Type * p_reg, uint32_t mask);
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] task  Task to be activated.
  */
-NRF_STATIC_INLINE void nrf_aar_task_trigger(NRF_AAR_Type * p_reg, nrf_aar_task_t task);
+NRF_STATIC_INLINE void nrf_aar_task_trigger(NRF_AAR_Type *p_reg,
+                                            nrf_aar_task_t task);
 
 /**
  * @brief Function for getting the address of a specific AAR task register.
@@ -144,35 +151,38 @@ NRF_STATIC_INLINE void nrf_aar_task_trigger(NRF_AAR_Type * p_reg, nrf_aar_task_t
  *
  * @return Address of the specified task register.
  */
-NRF_STATIC_INLINE uint32_t nrf_aar_task_address_get(NRF_AAR_Type const * p_reg,
-                                                    nrf_aar_task_t       task);
+NRF_STATIC_INLINE uint32_t nrf_aar_task_address_get(NRF_AAR_Type const *p_reg,
+                                                    nrf_aar_task_t task);
 
 /**
  * @brief Function for enabling AAR.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  */
-NRF_STATIC_INLINE void nrf_aar_enable(NRF_AAR_Type * p_reg);
+NRF_STATIC_INLINE void nrf_aar_enable(NRF_AAR_Type *p_reg);
 
 /**
  * @brief Function for disabling AAR.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  */
-NRF_STATIC_INLINE void nrf_aar_disable(NRF_AAR_Type * p_reg);
+NRF_STATIC_INLINE void nrf_aar_disable(NRF_AAR_Type *p_reg);
 
 /**
- * @brief Function for setting the pointer to the Identity Resolving Keys (IRK) data structure.
+ * @brief Function for setting the pointer to the Identity Resolving Keys (IRK)
+ * data structure.
  *
- * The size of the provided data structure must correspond to the number of keys available.
- * Each key occupies 16 bytes.
+ * The size of the provided data structure must correspond to the number of keys
+ * available. Each key occupies 16 bytes.
  *
  * @param[in] p_reg   Pointer to the structure of registers of the peripheral.
- * @param[in] irk_ptr Pointer to the IRK data structure. Must point to the Data RAM region.
+ * @param[in] irk_ptr Pointer to the IRK data structure. Must point to the Data
+ * RAM region.
  *
  * @sa nrf_aar_irk_number_set
  */
-NRF_STATIC_INLINE void nrf_aar_irk_pointer_set(NRF_AAR_Type * p_reg, uint8_t const * irk_ptr);
+NRF_STATIC_INLINE void nrf_aar_irk_pointer_set(NRF_AAR_Type *p_reg,
+                                               uint8_t const *irk_ptr);
 
 /**
  * @brief Function for getting the pointer to the Identity Resolving Keys
@@ -182,29 +192,32 @@ NRF_STATIC_INLINE void nrf_aar_irk_pointer_set(NRF_AAR_Type * p_reg, uint8_t con
  *
  * @return Pointer to the IRK data structure.
  */
-NRF_STATIC_INLINE uint8_t const * nrf_aar_irk_pointer_get(NRF_AAR_Type const * p_reg);
+NRF_STATIC_INLINE uint8_t const *
+nrf_aar_irk_pointer_get(NRF_AAR_Type const *p_reg);
 
 /**
- * @brief Function for setting the number of keys available in the Identity Resolving Keys
- *        data structure.
+ * @brief Function for setting the number of keys available in the Identity
+ * Resolving Keys data structure.
  *
  * @param[in] p_reg   Pointer to the structure of registers of the peripheral.
- * @param[in] irk_num Number of keys available in the IRK data structure. Maximum is 16.
- *                    Must correspond to the size of the provided IRK data structure.
+ * @param[in] irk_num Number of keys available in the IRK data structure.
+ * Maximum is 16. Must correspond to the size of the provided IRK data
+ * structure.
  *
  * @sa nrf_aar_irk_pointer_set
  */
-NRF_STATIC_INLINE void nrf_aar_irk_number_set(NRF_AAR_Type * p_reg, uint8_t irk_num);
+NRF_STATIC_INLINE void nrf_aar_irk_number_set(NRF_AAR_Type *p_reg,
+                                              uint8_t irk_num);
 
 /**
- * @brief Function for getting the number of keys available in the Identity Resolving Keys
- *        data structure.
+ * @brief Function for getting the number of keys available in the Identity
+ * Resolving Keys data structure.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  *
  * @return Number of keys in the IRK data structure.
  */
-NRF_STATIC_INLINE uint8_t nrf_aar_irk_number_get(NRF_AAR_Type const * p_reg);
+NRF_STATIC_INLINE uint8_t nrf_aar_irk_number_get(NRF_AAR_Type const *p_reg);
 
 /**
  * @brief Function for setting the pointer to the resolvable address.
@@ -212,10 +225,11 @@ NRF_STATIC_INLINE uint8_t nrf_aar_irk_number_get(NRF_AAR_Type const * p_reg);
  * The resolvable address must consist of 6 bytes.
  *
  * @param[in] p_reg    Pointer to the structure of registers of the peripheral.
- * @param[in] addr_ptr Pointer to the address to resolve using the available IRK keys.
- *                     Must point to the Data RAM region.
+ * @param[in] addr_ptr Pointer to the address to resolve using the available IRK
+ * keys. Must point to the Data RAM region.
  */
-NRF_STATIC_INLINE void nrf_aar_addr_pointer_set(NRF_AAR_Type * p_reg, uint8_t const * addr_ptr);
+NRF_STATIC_INLINE void nrf_aar_addr_pointer_set(NRF_AAR_Type *p_reg,
+                                                uint8_t const *addr_ptr);
 
 /**
  * @brief Function for getting the pointer to the resolvable address.
@@ -224,18 +238,23 @@ NRF_STATIC_INLINE void nrf_aar_addr_pointer_set(NRF_AAR_Type * p_reg, uint8_t co
  *
  * @return Pointer to the address to resolve.
  */
-NRF_STATIC_INLINE uint8_t const * nrf_aar_addr_pointer_get(NRF_AAR_Type const * p_reg);
+NRF_STATIC_INLINE uint8_t const *
+nrf_aar_addr_pointer_get(NRF_AAR_Type const *p_reg);
 
 /**
  * @brief Function for setting the pointer to the scratch data area.
  *
- * The scratch data area is used for temporary storage during the address resolution procedure.
- * A space of minimum 3 bytes must be reserved for the scratch data area.
+ * The scratch data area is used for temporary storage during the address
+ * resolution procedure. A space of minimum 3 bytes must be reserved for the
+ * scratch data area.
  *
- * @param[in] p_reg       Pointer to the structure of registers of the peripheral.
- * @param[in] scratch_ptr Pointer to the scratch data area. Must point to the Data RAM region.
+ * @param[in] p_reg       Pointer to the structure of registers of the
+ * peripheral.
+ * @param[in] scratch_ptr Pointer to the scratch data area. Must point to the
+ * Data RAM region.
  */
-NRF_STATIC_INLINE void nrf_aar_scratch_pointer_set(NRF_AAR_Type * p_reg, uint8_t * scratch_ptr);
+NRF_STATIC_INLINE void nrf_aar_scratch_pointer_set(NRF_AAR_Type *p_reg,
+                                                   uint8_t *scratch_ptr);
 
 /**
  * @brief Function for getting the pointer to the scratch data area.
@@ -244,21 +263,24 @@ NRF_STATIC_INLINE void nrf_aar_scratch_pointer_set(NRF_AAR_Type * p_reg, uint8_t
  *
  * @return Pointer to the scratch data area.
  */
-NRF_STATIC_INLINE uint8_t * nrf_aar_scratch_pointer_get(NRF_AAR_Type const * p_reg);
+NRF_STATIC_INLINE uint8_t *
+nrf_aar_scratch_pointer_get(NRF_AAR_Type const *p_reg);
 
 /**
- * @brief Function for getting the index of the Identity Resolving Key that was used
- *        the last time an address was resolved.
+ * @brief Function for getting the index of the Identity Resolving Key that was
+ * used the last time an address was resolved.
  *
- * This function can be used to get the IRK index that matched the resolvable address,
- * provided that @ref NRF_AAR_EVENT_RESOLVED occured. Otherwise, it will return
- * the index of the last IRK stored in the IRK data structure.
+ * This function can be used to get the IRK index that matched the resolvable
+ * address, provided that @ref NRF_AAR_EVENT_RESOLVED occured. Otherwise, it
+ * will return the index of the last IRK stored in the IRK data structure.
  *
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  *
- * @return The index of the IRK that was used the last time an address was resolved.
+ * @return The index of the IRK that was used the last time an address was
+ * resolved.
  */
-NRF_STATIC_INLINE uint8_t nrf_aar_resolution_status_get(NRF_AAR_Type const * p_reg);
+NRF_STATIC_INLINE uint8_t
+nrf_aar_resolution_status_get(NRF_AAR_Type const *p_reg);
 
 #if defined(DPPI_PRESENT) || defined(__NRFX_DOXYGEN__)
 /**
@@ -269,9 +291,9 @@ NRF_STATIC_INLINE uint8_t nrf_aar_resolution_status_get(NRF_AAR_Type const * p_r
  * @param[in] task    Task for which to set the configuration.
  * @param[in] channel Channel through which to subscribe events.
  */
-NRF_STATIC_INLINE void nrf_aar_subscribe_set(NRF_AAR_Type * p_reg,
+NRF_STATIC_INLINE void nrf_aar_subscribe_set(NRF_AAR_Type *p_reg,
                                              nrf_aar_task_t task,
-                                             uint8_t        channel);
+                                             uint8_t channel);
 
 /**
  * @brief Function for clearing the subscribe configuration for a given
@@ -280,7 +302,7 @@ NRF_STATIC_INLINE void nrf_aar_subscribe_set(NRF_AAR_Type * p_reg,
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] task  Task for which to clear the configuration.
  */
-NRF_STATIC_INLINE void nrf_aar_subscribe_clear(NRF_AAR_Type * p_reg,
+NRF_STATIC_INLINE void nrf_aar_subscribe_clear(NRF_AAR_Type *p_reg,
                                                nrf_aar_task_t task);
 
 /**
@@ -291,9 +313,9 @@ NRF_STATIC_INLINE void nrf_aar_subscribe_clear(NRF_AAR_Type * p_reg,
  * @param[in] event   Event for which to set the configuration.
  * @param[in] channel Channel through which to publish the event.
  */
-NRF_STATIC_INLINE void nrf_aar_publish_set(NRF_AAR_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_aar_publish_set(NRF_AAR_Type *p_reg,
                                            nrf_aar_event_t event,
-                                           uint8_t         channel);
+                                           uint8_t channel);
 
 /**
  * @brief Function for clearing the publish configuration for a given
@@ -302,138 +324,125 @@ NRF_STATIC_INLINE void nrf_aar_publish_set(NRF_AAR_Type *  p_reg,
  * @param[in] p_reg Pointer to the structure of registers of the peripheral.
  * @param[in] event Event for which to clear the configuration.
  */
-NRF_STATIC_INLINE void nrf_aar_publish_clear(NRF_AAR_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_aar_publish_clear(NRF_AAR_Type *p_reg,
                                              nrf_aar_event_t event);
 #endif // defined(DPPI_PRESENT) || defined(__NRFX_DOXYGEN__)
 
 #ifndef NRF_DECLARE_ONLY
-NRF_STATIC_INLINE bool nrf_aar_event_check(NRF_AAR_Type const * p_reg,
-                                           nrf_aar_event_t      aar_event)
-{
-    return (bool)*(volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)aar_event);
+NRF_STATIC_INLINE bool nrf_aar_event_check(NRF_AAR_Type const *p_reg,
+                                           nrf_aar_event_t aar_event) {
+  return (bool)*(volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)aar_event);
 }
 
-NRF_STATIC_INLINE void nrf_aar_event_clear(NRF_AAR_Type *  p_reg,
-                                           nrf_aar_event_t aar_event)
-{
-    *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)aar_event)) = 0;
-    nrf_event_readback((uint8_t *)p_reg + (uint32_t)aar_event);
+NRF_STATIC_INLINE void nrf_aar_event_clear(NRF_AAR_Type *p_reg,
+                                           nrf_aar_event_t aar_event) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)aar_event)) = 0;
+  nrf_event_readback((uint8_t *)p_reg + (uint32_t)aar_event);
 }
 
-NRF_STATIC_INLINE uint32_t nrf_aar_event_address_get(NRF_AAR_Type const * p_reg,
-                                                     nrf_aar_event_t      aar_event)
-{
-    return (uint32_t)((uint8_t *)p_reg + (uint32_t)aar_event);
+NRF_STATIC_INLINE uint32_t nrf_aar_event_address_get(
+    NRF_AAR_Type const *p_reg, nrf_aar_event_t aar_event) {
+  return (uint32_t)((uint8_t *)p_reg + (uint32_t)aar_event);
 }
 
-NRF_STATIC_INLINE void nrf_aar_int_enable(NRF_AAR_Type * p_reg, uint32_t mask)
-{
-    p_reg->INTENSET = mask;
+NRF_STATIC_INLINE void nrf_aar_int_enable(NRF_AAR_Type *p_reg, uint32_t mask) {
+  p_reg->INTENSET = mask;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_aar_int_enable_check(NRF_AAR_Type const * p_reg, uint32_t mask)
-{
-    return p_reg->INTENSET & mask;
+NRF_STATIC_INLINE uint32_t nrf_aar_int_enable_check(NRF_AAR_Type const *p_reg,
+                                                    uint32_t mask) {
+  return p_reg->INTENSET & mask;
 }
 
-NRF_STATIC_INLINE void nrf_aar_int_disable(NRF_AAR_Type * p_reg, uint32_t mask)
-{
-    p_reg->INTENCLR = mask;
+NRF_STATIC_INLINE void nrf_aar_int_disable(NRF_AAR_Type *p_reg, uint32_t mask) {
+  p_reg->INTENCLR = mask;
 }
 
-NRF_STATIC_INLINE void nrf_aar_task_trigger(NRF_AAR_Type * p_reg, nrf_aar_task_t task)
-{
-    *(volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)task) = 1;
+NRF_STATIC_INLINE void nrf_aar_task_trigger(NRF_AAR_Type *p_reg,
+                                            nrf_aar_task_t task) {
+  *(volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)task) = 1;
 }
 
-NRF_STATIC_INLINE uint32_t nrf_aar_task_address_get(NRF_AAR_Type const * p_reg,
-                                                    nrf_aar_task_t       task)
-{
-    return (uint32_t)((uint8_t *)p_reg + (uint32_t)task);
+NRF_STATIC_INLINE uint32_t nrf_aar_task_address_get(NRF_AAR_Type const *p_reg,
+                                                    nrf_aar_task_t task) {
+  return (uint32_t)((uint8_t *)p_reg + (uint32_t)task);
 }
 
-NRF_STATIC_INLINE void nrf_aar_enable(NRF_AAR_Type * p_reg)
-{
-    p_reg->ENABLE = AAR_ENABLE_ENABLE_Enabled << AAR_ENABLE_ENABLE_Pos;
+NRF_STATIC_INLINE void nrf_aar_enable(NRF_AAR_Type *p_reg) {
+  p_reg->ENABLE = AAR_ENABLE_ENABLE_Enabled << AAR_ENABLE_ENABLE_Pos;
 }
 
-NRF_STATIC_INLINE void nrf_aar_disable(NRF_AAR_Type * p_reg)
-{
-    p_reg->ENABLE = AAR_ENABLE_ENABLE_Disabled << AAR_ENABLE_ENABLE_Pos;
+NRF_STATIC_INLINE void nrf_aar_disable(NRF_AAR_Type *p_reg) {
+  p_reg->ENABLE = AAR_ENABLE_ENABLE_Disabled << AAR_ENABLE_ENABLE_Pos;
 }
 
-NRF_STATIC_INLINE void nrf_aar_irk_pointer_set(NRF_AAR_Type * p_reg, uint8_t const * irk_ptr)
-{
-    p_reg->IRKPTR = (uint32_t)irk_ptr;
+NRF_STATIC_INLINE void nrf_aar_irk_pointer_set(NRF_AAR_Type *p_reg,
+                                               uint8_t const *irk_ptr) {
+  p_reg->IRKPTR = (uint32_t)irk_ptr;
 }
 
-NRF_STATIC_INLINE uint8_t const * nrf_aar_irk_pointer_get(NRF_AAR_Type const * p_reg)
-{
-    return (uint8_t const *)(p_reg->IRKPTR);
+NRF_STATIC_INLINE uint8_t const *
+nrf_aar_irk_pointer_get(NRF_AAR_Type const *p_reg) {
+  return (uint8_t const *)(p_reg->IRKPTR);
 }
 
-NRF_STATIC_INLINE void nrf_aar_irk_number_set(NRF_AAR_Type * p_reg, uint8_t irk_num)
-{
-    p_reg->NIRK = irk_num;
+NRF_STATIC_INLINE void nrf_aar_irk_number_set(NRF_AAR_Type *p_reg,
+                                              uint8_t irk_num) {
+  p_reg->NIRK = irk_num;
 }
 
-NRF_STATIC_INLINE uint8_t nrf_aar_irk_number_get(NRF_AAR_Type const * p_reg)
-{
-    return (uint8_t)(p_reg->NIRK);
+NRF_STATIC_INLINE uint8_t nrf_aar_irk_number_get(NRF_AAR_Type const *p_reg) {
+  return (uint8_t)(p_reg->NIRK);
 }
 
-NRF_STATIC_INLINE void nrf_aar_addr_pointer_set(NRF_AAR_Type * p_reg, uint8_t const * addr_ptr)
-{
-    p_reg->ADDRPTR = (uint32_t)addr_ptr;
+NRF_STATIC_INLINE void nrf_aar_addr_pointer_set(NRF_AAR_Type *p_reg,
+                                                uint8_t const *addr_ptr) {
+  p_reg->ADDRPTR = (uint32_t)addr_ptr;
 }
 
-NRF_STATIC_INLINE uint8_t const * nrf_aar_addr_pointer_get(NRF_AAR_Type const * p_reg)
-{
-    return (uint8_t const *)(p_reg->ADDRPTR);
+NRF_STATIC_INLINE uint8_t const *
+nrf_aar_addr_pointer_get(NRF_AAR_Type const *p_reg) {
+  return (uint8_t const *)(p_reg->ADDRPTR);
 }
 
-NRF_STATIC_INLINE void nrf_aar_scratch_pointer_set(NRF_AAR_Type * p_reg, uint8_t * scratch_ptr)
-{
-    p_reg->SCRATCHPTR = (uint32_t)scratch_ptr;
+NRF_STATIC_INLINE void nrf_aar_scratch_pointer_set(NRF_AAR_Type *p_reg,
+                                                   uint8_t *scratch_ptr) {
+  p_reg->SCRATCHPTR = (uint32_t)scratch_ptr;
 }
 
-NRF_STATIC_INLINE uint8_t * nrf_aar_scratch_pointer_get(NRF_AAR_Type const * p_reg)
-{
-    return (uint8_t *)(p_reg->SCRATCHPTR);
+NRF_STATIC_INLINE uint8_t *
+nrf_aar_scratch_pointer_get(NRF_AAR_Type const *p_reg) {
+  return (uint8_t *)(p_reg->SCRATCHPTR);
 }
 
-NRF_STATIC_INLINE uint8_t nrf_aar_resolution_status_get(NRF_AAR_Type const * p_reg)
-{
-    return (uint8_t)(p_reg->STATUS);
+NRF_STATIC_INLINE uint8_t
+nrf_aar_resolution_status_get(NRF_AAR_Type const *p_reg) {
+  return (uint8_t)(p_reg->STATUS);
 }
 
 #if defined(DPPI_PRESENT)
-NRF_STATIC_INLINE void nrf_aar_subscribe_set(NRF_AAR_Type * p_reg,
+NRF_STATIC_INLINE void nrf_aar_subscribe_set(NRF_AAR_Type *p_reg,
                                              nrf_aar_task_t task,
-                                             uint8_t        channel)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) task + 0x80uL)) =
-            ((uint32_t)channel | AAR_SUBSCRIBE_START_EN_Msk);
+                                             uint8_t channel) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)task + 0x80uL)) =
+      ((uint32_t)channel | AAR_SUBSCRIBE_START_EN_Msk);
 }
 
-NRF_STATIC_INLINE void nrf_aar_subscribe_clear(NRF_AAR_Type * p_reg,
-                                               nrf_aar_task_t task)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) task + 0x80uL)) = 0;
+NRF_STATIC_INLINE void nrf_aar_subscribe_clear(NRF_AAR_Type *p_reg,
+                                               nrf_aar_task_t task) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)task + 0x80uL)) = 0;
 }
 
-NRF_STATIC_INLINE void nrf_aar_publish_set(NRF_AAR_Type *  p_reg,
+NRF_STATIC_INLINE void nrf_aar_publish_set(NRF_AAR_Type *p_reg,
                                            nrf_aar_event_t event,
-                                           uint8_t         channel)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) event + 0x80uL)) =
-            ((uint32_t)channel | AAR_PUBLISH_END_EN_Msk);
+                                           uint8_t channel) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event + 0x80uL)) =
+      ((uint32_t)channel | AAR_PUBLISH_END_EN_Msk);
 }
 
-NRF_STATIC_INLINE void nrf_aar_publish_clear(NRF_AAR_Type *  p_reg,
-                                             nrf_aar_event_t event)
-{
-    *((volatile uint32_t *) ((uint8_t *) p_reg + (uint32_t) event + 0x80uL)) = 0;
+NRF_STATIC_INLINE void nrf_aar_publish_clear(NRF_AAR_Type *p_reg,
+                                             nrf_aar_event_t event) {
+  *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)event + 0x80uL)) = 0;
 }
 #endif // defined(DPPI_PRESENT)
 

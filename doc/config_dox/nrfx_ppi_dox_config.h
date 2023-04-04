@@ -67,6 +67,4 @@
  */
 #define NRFX_PPI_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

@@ -4,7 +4,7 @@
  * @{
  * @ingroup nrfx_spis
  */
-/** @brief 
+/** @brief
  *
  *  Set to 1 to activate.
  *
@@ -107,7 +107,6 @@
  */
 #define NRFX_SPIS_CONFIG_DEBUG_COLOR
 
-
 /** @brief Enables nRF52 Anomaly 109 workaround for SPIS.
  *
  * The workaround uses a GPIOTE channel to generate interrupts
@@ -122,6 +121,5 @@
  * @note This is an NRF_CONFIG macro.
  */
 #define NRFX_SPIS_NRF52_ANOMALY_109_WORKAROUND_ENABLED
-
 
 /** @} */

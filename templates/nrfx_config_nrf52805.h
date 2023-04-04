@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -35,7 +35,8 @@
 #define NRFX_CONFIG_NRF52805_H__
 
 #ifndef NRFX_CONFIG_H__
-#error "This file should not be included directly. Include nrfx_config.h instead."
+#error                                                                         \
+    "This file should not be included directly. Include nrfx_config.h instead."
 #endif
 
 // <<< Use Configuration Wizard in Context Menu >>>\n
@@ -65,12 +66,13 @@
 #define NRFX_CLOCK_CONFIG_LF_CAL_ENABLED 0
 #endif
 
-// <q> NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED - Enables two-stage LFXO start procedure
+// <q> NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED - Enables two-stage LFXO start
+// procedure
 
-// <i> If set to a non-zero value, LFRC will be started before LFXO and corresponding
-// <i> event will be generated. It means that CPU will be woken up when LFRC
-// <i> oscillator starts, but user callback will be invoked only after LFXO
-// <i> finally starts.
+// <i> If set to a non-zero value, LFRC will be started before LFXO and
+// corresponding <i> event will be generated. It means that CPU will be woken up
+// when LFRC <i> oscillator starts, but user callback will be invoked only after
+// LFXO <i> finally starts.
 
 #ifndef NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED
 #define NRFX_CLOCK_CONFIG_LFXO_TWO_STAGE_ENABLED 0
@@ -184,7 +186,8 @@
 #ifndef NRFX_GPIOTE_ENABLED
 #define NRFX_GPIOTE_ENABLED 0
 #endif
-// <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input pins
+// <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input
+// pins
 #ifndef NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS
 #define NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS 1
 #endif
@@ -352,13 +355,11 @@
 #endif
 // <q> NRFX_PRS_BOX_0_ENABLED  - Enables box 0 in the module.
 
-
 #ifndef NRFX_PRS_BOX_0_ENABLED
 #define NRFX_PRS_BOX_0_ENABLED 0
 #endif
 
 // <q> NRFX_PRS_BOX_1_ENABLED  - Enables box 1 in the module.
-
 
 #ifndef NRFX_PRS_BOX_1_ENABLED
 #define NRFX_PRS_BOX_1_ENABLED 0
@@ -366,11 +367,9 @@
 
 // <q> NRFX_PRS_BOX_2_ENABLED  - Enables box 2 in the module.
 
-
 #ifndef NRFX_PRS_BOX_2_ENABLED
 #define NRFX_PRS_BOX_2_ENABLED 0
 #endif
-
 
 // <e> NRFX_PRS_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
@@ -820,7 +819,6 @@
 #endif
 // <q> NRFX_SPIS0_ENABLED  - Enable SPIS0 instance
 
-
 #ifndef NRFX_SPIS0_ENABLED
 #define NRFX_SPIS0_ENABLED 0
 #endif
@@ -900,7 +898,6 @@
 #endif
 // <q> NRFX_SPI0_ENABLED  - Enable SPI0 instance
 
-
 #ifndef NRFX_SPI0_ENABLED
 #define NRFX_SPI0_ENABLED 0
 #endif
@@ -974,7 +971,6 @@
 // </e>
 
 // <q> NRFX_SYSTICK_ENABLED  - nrfx_systick - ARM(R) SysTick driver
-
 
 #ifndef NRFX_SYSTICK_ENABLED
 #define NRFX_SYSTICK_ENABLED 0
@@ -1187,9 +1183,15 @@
 #define NRFX_TWIS0_ENABLED 0
 #endif
 
-// <q> NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY  - Assume that any instance would be initialized only once
+// <q> NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY  - Assume that any instance would
+// be initialized only once
 
-// <i> Optimization flag. Registers used by TWIS are shared by other peripherals. Normally, during initialization driver tries to clear all registers to known state before doing the initialization itself. This gives initialization safe procedure, no matter when it would be called. If you activate TWIS only once and do never uninitialize it - set this flag to 1 what gives more optimal code.
+// <i> Optimization flag. Registers used by TWIS are shared by other
+// peripherals. Normally, during initialization driver tries to clear all
+// registers to known state before doing the initialization itself. This gives
+// initialization safe procedure, no matter when it would be called. If you
+// activate TWIS only once and do never uninitialize it - set this flag to 1
+// what gives more optimal code.
 
 #ifndef NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY
 #define NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY 0
@@ -1197,7 +1199,10 @@
 
 // <q> NRFX_TWIS_NO_SYNC_MODE  - Remove support for synchronous mode
 
-// <i> Synchronous mode would be used in specific situations. And it uses some additional code and data memory to safely process state machine by polling it in status functions. If this functionality is not required it may be disabled to free some resources.
+// <i> Synchronous mode would be used in specific situations. And it uses some
+// additional code and data memory to safely process state machine by polling it
+// in status functions. If this functionality is not required it may be disabled
+// to free some resources.
 
 #ifndef NRFX_TWIS_NO_SYNC_MODE
 #define NRFX_TWIS_NO_SYNC_MODE 0

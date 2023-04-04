@@ -83,6 +83,4 @@
  */
 #define NRFX_QDEC_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

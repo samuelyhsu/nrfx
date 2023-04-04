@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -47,11 +47,12 @@ extern "C" {
  * @brief   Bitmask managing module.
  */
 
-/** @brief Macro for getting index of byte in byte stream where @c abs_bit is put. */
-#define BITMASK_BYTE_GET(abs_bit) ((abs_bit)/8)
+/** @brief Macro for getting index of byte in byte stream where @c abs_bit is
+ * put. */
+#define BITMASK_BYTE_GET(abs_bit) ((abs_bit) / 8)
 
 /** @brief Macro for getting relative index of bit in byte. */
-#define BITMASK_RELBIT_GET(abs_bit) ((abs_bit) & 0x00000007)
+#define BITMASK_RELBIT_GET(abs_bit) ((abs_bit)&0x00000007)
 
 /**
  * @brief Function for checking if bit in the multi-byte bit mask is set.
@@ -62,12 +63,11 @@ extern "C" {
  * @retval true  If the specified bit is set.
  * @retval false If the specified bit is cleared.
  */
-__STATIC_INLINE bool nrf_bitmask_bit_is_set(uint32_t bit, void const * p_mask)
-{
-    uint8_t const * p_mask8 = (uint8_t const *)p_mask;
-    uint32_t byte_idx = BITMASK_BYTE_GET(bit);
-    bit = BITMASK_RELBIT_GET(bit);
-    return ((1U << bit) & p_mask8[byte_idx]) != 0U;
+__STATIC_INLINE bool nrf_bitmask_bit_is_set(uint32_t bit, void const *p_mask) {
+  uint8_t const *p_mask8 = (uint8_t const *)p_mask;
+  uint32_t byte_idx = BITMASK_BYTE_GET(bit);
+  bit = BITMASK_RELBIT_GET(bit);
+  return ((1U << bit) & p_mask8[byte_idx]) != 0U;
 }
 
 /**
@@ -76,12 +76,11 @@ __STATIC_INLINE bool nrf_bitmask_bit_is_set(uint32_t bit, void const * p_mask)
  * @param[in]     bit    Bit index.
  * @param[in,out] p_mask Pointer to mask with bit fields.
  */
-__STATIC_INLINE void nrf_bitmask_bit_set(uint32_t bit, void * p_mask)
-{
-    uint8_t * p_mask8 = (uint8_t *)p_mask;
-    uint32_t byte_idx = BITMASK_BYTE_GET(bit);
-    bit = BITMASK_RELBIT_GET(bit);
-    p_mask8[byte_idx] |= (1 << bit);
+__STATIC_INLINE void nrf_bitmask_bit_set(uint32_t bit, void *p_mask) {
+  uint8_t *p_mask8 = (uint8_t *)p_mask;
+  uint32_t byte_idx = BITMASK_BYTE_GET(bit);
+  bit = BITMASK_RELBIT_GET(bit);
+  p_mask8[byte_idx] |= (1 << bit);
 }
 
 /**
@@ -90,56 +89,51 @@ __STATIC_INLINE void nrf_bitmask_bit_set(uint32_t bit, void * p_mask)
  * @param[in]     bit    Bit index.
  * @param[in,out] p_mask Pointer to mask with bit fields.
  */
-__STATIC_INLINE void nrf_bitmask_bit_clear(uint32_t bit, void * p_mask)
-{
-    uint8_t * p_mask8 = (uint8_t *)p_mask;
-    uint32_t byte_idx = BITMASK_BYTE_GET(bit);
-    bit = BITMASK_RELBIT_GET(bit);
-    p_mask8[byte_idx] &= ~(1 << bit);
+__STATIC_INLINE void nrf_bitmask_bit_clear(uint32_t bit, void *p_mask) {
+  uint8_t *p_mask8 = (uint8_t *)p_mask;
+  uint32_t byte_idx = BITMASK_BYTE_GET(bit);
+  bit = BITMASK_RELBIT_GET(bit);
+  p_mask8[byte_idx] &= ~(1 << bit);
 }
 
 /**
- * @brief Function for performing bitwise OR operation on two multi-byte bit masks.
+ * @brief Function for performing bitwise OR operation on two multi-byte bit
+ * masks.
  *
  * @param[in]  p_mask1    Pointer to the first bit mask.
  * @param[in]  p_mask2    Pointer to the second bit mask.
  * @param[out] p_out_mask Pointer to the output bit mask.
  * @param[in]  length     Length of output mask in bytes.
  */
-__STATIC_INLINE void nrf_bitmask_masks_or(void const * p_mask1,
-                                          void const * p_mask2,
-                                          void *       p_out_mask,
-                                          size_t       length)
-{
-    uint8_t const * p_mask8_1 = (uint8_t const *)p_mask1;
-    uint8_t const * p_mask8_2 = (uint8_t const *)p_mask2;
-    uint8_t * p_mask8_out = (uint8_t *)p_out_mask;
-    for (size_t i = 0; i < length; i++)
-    {
-        p_mask8_out[i] = p_mask8_1[i] | p_mask8_2[i];
-    }
+__STATIC_INLINE void nrf_bitmask_masks_or(void const *p_mask1,
+                                          void const *p_mask2, void *p_out_mask,
+                                          size_t length) {
+  uint8_t const *p_mask8_1 = (uint8_t const *)p_mask1;
+  uint8_t const *p_mask8_2 = (uint8_t const *)p_mask2;
+  uint8_t *p_mask8_out = (uint8_t *)p_out_mask;
+  for (size_t i = 0; i < length; i++) {
+    p_mask8_out[i] = p_mask8_1[i] | p_mask8_2[i];
+  }
 }
 
 /**
- * @brief Function for performing bitwise AND operation on two multi-byte bit masks.
+ * @brief Function for performing bitwise AND operation on two multi-byte bit
+ * masks.
  *
  * @param[in]  p_mask1    Pointer to the first bit mask.
  * @param[in]  p_mask2    Pointer to the second bit mask.
  * @param[out] p_out_mask Pointer to the output bit mask.
  * @param[in]  length     Length of output mask in bytes.
  */
-__STATIC_INLINE void nrf_bitmask_masks_and(void const * p_mask1,
-                                           void const * p_mask2,
-                                           void *       p_out_mask,
-                                           size_t       length)
-{
-    uint8_t const * p_mask8_1 = (uint8_t const *)p_mask1;
-    uint8_t const * p_mask8_2 = (uint8_t const *)p_mask2;
-    uint8_t * p_mask8_out = (uint8_t *)p_out_mask;
-    for (size_t i = 0; i < length; i++)
-    {
-        p_mask8_out[i] = p_mask8_1[i] & p_mask8_2[i];
-    }
+__STATIC_INLINE void nrf_bitmask_masks_and(void const *p_mask1,
+                                           void const *p_mask2,
+                                           void *p_out_mask, size_t length) {
+  uint8_t const *p_mask8_1 = (uint8_t const *)p_mask1;
+  uint8_t const *p_mask8_2 = (uint8_t const *)p_mask2;
+  uint8_t *p_mask8_out = (uint8_t *)p_out_mask;
+  for (size_t i = 0; i < length; i++) {
+    p_mask8_out[i] = p_mask8_1[i] & p_mask8_2[i];
+  }
 }
 
 /** @} */

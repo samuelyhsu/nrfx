@@ -472,5 +472,3 @@ SPIM3_IRQHandler
         B .
 
         END
-
-

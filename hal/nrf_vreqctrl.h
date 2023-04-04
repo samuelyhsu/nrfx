@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -48,12 +48,15 @@ extern "C" {
  */
 
 /**
- * @brief Function for requesting high voltage on RADIO, to increase its output power by 3 dBm.
+ * @brief Function for requesting high voltage on RADIO, to increase its output
+ * power by 3 dBm.
  *
  * @param[in] p_reg  Pointer to the structure of registers of the peripheral.
- * @param[in] enable True if high voltage on RADIO is to be enabled, false otherwise.
+ * @param[in] enable True if high voltage on RADIO is to be enabled, false
+ * otherwise.
  */
-NRF_STATIC_INLINE void nrf_vreqctrl_radio_high_voltage_set(NRF_VREQCTRL_Type * p_reg, bool enable);
+NRF_STATIC_INLINE void
+nrf_vreqctrl_radio_high_voltage_set(NRF_VREQCTRL_Type *p_reg, bool enable);
 
 /**
  * @brief Function for checking if high voltage on RADIO is ready.
@@ -63,19 +66,21 @@ NRF_STATIC_INLINE void nrf_vreqctrl_radio_high_voltage_set(NRF_VREQCTRL_Type * p
  * @retval true  The high voltage is ready.
  * @retval false The high voltage is not ready.
  */
-NRF_STATIC_INLINE bool nrf_vreqctrl_radio_high_voltage_check(NRF_VREQCTRL_Type const * p_reg);
+NRF_STATIC_INLINE bool
+nrf_vreqctrl_radio_high_voltage_check(NRF_VREQCTRL_Type const *p_reg);
 
 #ifndef NRF_DECLARE_ONLY
 
-NRF_STATIC_INLINE void nrf_vreqctrl_radio_high_voltage_set(NRF_VREQCTRL_Type * p_reg, bool enable)
-{
-    p_reg->VREGRADIO.VREQH =
-        (enable ? VREQCTRL_VREGRADIO_VREQH_VREQH_Enabled : VREQCTRL_VREGRADIO_VREQH_VREQH_Disabled);
+NRF_STATIC_INLINE void
+nrf_vreqctrl_radio_high_voltage_set(NRF_VREQCTRL_Type *p_reg, bool enable) {
+  p_reg->VREGRADIO.VREQH = (enable ? VREQCTRL_VREGRADIO_VREQH_VREQH_Enabled
+                                   : VREQCTRL_VREGRADIO_VREQH_VREQH_Disabled);
 }
 
-NRF_STATIC_INLINE bool nrf_vreqctrl_radio_high_voltage_check(NRF_VREQCTRL_Type const * p_reg)
-{
-    return (bool)(p_reg->VREGRADIO.VREQHREADY & VREQCTRL_VREGRADIO_VREQHREADY_READY_Msk);
+NRF_STATIC_INLINE bool
+nrf_vreqctrl_radio_high_voltage_check(NRF_VREQCTRL_Type const *p_reg) {
+  return (bool)(p_reg->VREGRADIO.VREQHREADY &
+                VREQCTRL_VREGRADIO_VREQHREADY_READY_Msk);
 }
 
 #endif // NRF_DECLARE_ONLY

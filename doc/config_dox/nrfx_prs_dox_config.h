@@ -107,6 +107,4 @@
  */
 #define NRFX_PRS_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

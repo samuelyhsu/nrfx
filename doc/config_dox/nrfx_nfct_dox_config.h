@@ -83,6 +83,4 @@
  */
 #define NRFX_NFCT_CONFIG_DEBUG_COLOR
 
-
-
 /** @} */

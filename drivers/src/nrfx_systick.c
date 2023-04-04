@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -75,8 +75,9 @@
  *
  * @param us Time in microseconds to check
  */
-#define NRFX_SYSTICK_ASSERT_TIMEOUT(us) \
-    NRFX_ASSERT(us <= (NRFX_SYSTICK_TICKS_MAX / ((SystemCoreClock) / NRFX_SYSTICK_US)));
+#define NRFX_SYSTICK_ASSERT_TIMEOUT(us)                                        \
+  NRFX_ASSERT(                                                                 \
+      us <= (NRFX_SYSTICK_TICKS_MAX / ((SystemCoreClock) / NRFX_SYSTICK_US)));
 
 /**
  * @brief Function that converts microseconds to ticks
@@ -89,9 +90,8 @@
  *
  * @sa nrfx_systick_ms_tick
  */
-static inline uint32_t nrfx_systick_us_tick(uint32_t us)
-{
-    return us * ((SystemCoreClock) / NRFX_SYSTICK_US);
+static inline uint32_t nrfx_systick_us_tick(uint32_t us) {
+  return us * ((SystemCoreClock) / NRFX_SYSTICK_US);
 }
 
 /**
@@ -105,59 +105,49 @@ static inline uint32_t nrfx_systick_us_tick(uint32_t us)
  *
  * @sa nrfx_systick_us_tick
  */
-static inline uint32_t nrfx_systick_ms_tick(uint32_t ms)
-{
-    return ms * ((SystemCoreClock) / NRFX_SYSTICK_MS);
+static inline uint32_t nrfx_systick_ms_tick(uint32_t ms) {
+  return ms * ((SystemCoreClock) / NRFX_SYSTICK_MS);
 }
 
-void nrfx_systick_init(void)
-{
-    nrf_systick_load_set(NRF_SYSTICK_VAL_MASK);
-    nrf_systick_csr_set(
-        NRF_SYSTICK_CSR_CLKSOURCE_CPU |
-        NRF_SYSTICK_CSR_TICKINT_DISABLE |
-        NRF_SYSTICK_CSR_ENABLE);
+void nrfx_systick_init(void) {
+  nrf_systick_load_set(NRF_SYSTICK_VAL_MASK);
+  nrf_systick_csr_set(NRF_SYSTICK_CSR_CLKSOURCE_CPU |
+                      NRF_SYSTICK_CSR_TICKINT_DISABLE | NRF_SYSTICK_CSR_ENABLE);
 }
 
-void nrfx_systick_get(nrfx_systick_state_t * p_state)
-{
-    p_state->time = nrf_systick_val_get();
+void nrfx_systick_get(nrfx_systick_state_t *p_state) {
+  p_state->time = nrf_systick_val_get();
 }
 
-bool nrfx_systick_test(nrfx_systick_state_t const * p_state, uint32_t us)
-{
-    NRFX_SYSTICK_ASSERT_TIMEOUT(us);
+bool nrfx_systick_test(nrfx_systick_state_t const *p_state, uint32_t us) {
+  NRFX_SYSTICK_ASSERT_TIMEOUT(us);
 
-    const uint32_t diff = NRF_SYSTICK_VAL_MASK & ((p_state->time) - nrf_systick_val_get());
-    return (diff >= nrfx_systick_us_tick(us));
+  const uint32_t diff =
+      NRF_SYSTICK_VAL_MASK & ((p_state->time) - nrf_systick_val_get());
+  return (diff >= nrfx_systick_us_tick(us));
 }
 
-void nrfx_systick_delay_ticks(uint32_t ticks)
-{
-    NRFX_ASSERT(ticks <= NRFX_SYSTICK_TICKS_MAX);
+void nrfx_systick_delay_ticks(uint32_t ticks) {
+  NRFX_ASSERT(ticks <= NRFX_SYSTICK_TICKS_MAX);
 
-    const uint32_t start = nrf_systick_val_get();
-    while ((NRF_SYSTICK_VAL_MASK & (start - nrf_systick_val_get())) < ticks)
-    {
-        /* Nothing to do */
-    }
+  const uint32_t start = nrf_systick_val_get();
+  while ((NRF_SYSTICK_VAL_MASK & (start - nrf_systick_val_get())) < ticks) {
+    /* Nothing to do */
+  }
 }
 
-void nrfx_systick_delay_us(uint32_t us)
-{
-    NRFX_SYSTICK_ASSERT_TIMEOUT(us);
-    nrfx_systick_delay_ticks(nrfx_systick_us_tick(us));
+void nrfx_systick_delay_us(uint32_t us) {
+  NRFX_SYSTICK_ASSERT_TIMEOUT(us);
+  nrfx_systick_delay_ticks(nrfx_systick_us_tick(us));
 }
 
-void nrfx_systick_delay_ms(uint32_t ms)
-{
-    uint32_t n = ms / NRFX_SYSTICK_MS_STEP;
-    uint32_t r = ms % NRFX_SYSTICK_MS_STEP;
-    while (0 != (n--))
-    {
-        nrfx_systick_delay_ticks(nrfx_systick_ms_tick(NRFX_SYSTICK_MS_STEP));
-    }
-    nrfx_systick_delay_ticks(nrfx_systick_ms_tick(r));
+void nrfx_systick_delay_ms(uint32_t ms) {
+  uint32_t n = ms / NRFX_SYSTICK_MS_STEP;
+  uint32_t r = ms % NRFX_SYSTICK_MS_STEP;
+  while (0 != (n--)) {
+    nrfx_systick_delay_ticks(nrfx_systick_ms_tick(NRFX_SYSTICK_MS_STEP));
+  }
+  nrfx_systick_delay_ticks(nrfx_systick_ms_tick(r));
 }
 
 #endif // NRFX_CHECK(NRFX_SYSTICK_ENABLED)

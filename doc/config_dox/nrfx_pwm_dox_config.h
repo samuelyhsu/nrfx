@@ -4,7 +4,7 @@
  * @{
  * @ingroup nrfx_pwm
  */
-/** @brief 
+/** @brief
  *
  *  Set to 1 to activate.
  *
@@ -144,7 +144,5 @@
  * @note This is an NRF_CONFIG macro.
  */
 #define NRFX_PWM_NRF52_ANOMALY_109_EGU_INSTANCE
-
-
 
 /** @} */

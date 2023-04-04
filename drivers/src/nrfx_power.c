@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -95,251 +95,213 @@ static nrfx_power_usb_event_handler_t m_usbevt_handler;
 
 /** @} */
 
-nrfx_power_pofwarn_event_handler_t nrfx_power_pof_handler_get(void)
-{
-    return m_pofwarn_handler;
+nrfx_power_pofwarn_event_handler_t nrfx_power_pof_handler_get(void) {
+  return m_pofwarn_handler;
 }
 
 #if NRF_POWER_HAS_USBREG
-nrfx_power_usb_event_handler_t nrfx_power_usb_handler_get(void)
-{
-    return m_usbevt_handler;
+nrfx_power_usb_event_handler_t nrfx_power_usb_handler_get(void) {
+  return m_usbevt_handler;
 }
 #endif
 
-nrfx_err_t nrfx_power_init(nrfx_power_config_t const * p_config)
-{
-    NRFX_ASSERT(p_config);
-    if (m_initialized)
-    {
-        return NRFX_ERROR_ALREADY_INITIALIZED;
-    }
+nrfx_err_t nrfx_power_init(nrfx_power_config_t const *p_config) {
+  NRFX_ASSERT(p_config);
+  if (m_initialized) {
+    return NRFX_ERROR_ALREADY_INITIALIZED;
+  }
 
 #if NRF_POWER_HAS_DCDCEN_VDDH
-    nrf_power_dcdcen_vddh_set(NRF_POWER, p_config->dcdcenhv);
+  nrf_power_dcdcen_vddh_set(NRF_POWER, p_config->dcdcenhv);
 #elif NRF_REGULATORS_HAS_DCDCEN_VDDH
-    nrf_regulators_dcdcen_vddh_set(NRF_REGULATORS, p_config->dcdcenhv);
+  nrf_regulators_dcdcen_vddh_set(NRF_REGULATORS, p_config->dcdcenhv);
 #endif
 
 #if NRF_POWER_HAS_DCDCEN
-    nrf_power_dcdcen_set(NRF_POWER, p_config->dcdcen);
+  nrf_power_dcdcen_set(NRF_POWER, p_config->dcdcen);
 #elif defined(REGULATORS_PRESENT)
-    nrf_regulators_dcdcen_set(NRF_REGULATORS, p_config->dcdcen);
+  nrf_regulators_dcdcen_set(NRF_REGULATORS, p_config->dcdcen);
 #if !defined(NRF_TRUSTZONE_NONSECURE)
-    if (p_config->dcdcen && nrf53_errata_53())
-    {
-        *((volatile uint32_t *)0x50004728ul) = 0x1;
-    }
+  if (p_config->dcdcen && nrf53_errata_53()) {
+    *((volatile uint32_t *)0x50004728ul) = 0x1;
+  }
 #endif
 #endif // defined(REGULATORS_PRESENT)
 
-    nrfx_power_clock_irq_init();
+  nrfx_power_clock_irq_init();
 
-    m_initialized = true;
-    return NRFX_SUCCESS;
+  m_initialized = true;
+  return NRFX_SUCCESS;
 }
 
-
-void nrfx_power_uninit(void)
-{
-    NRFX_ASSERT(m_initialized);
+void nrfx_power_uninit(void) {
+  NRFX_ASSERT(m_initialized);
 
 #if NRFX_CHECK(NRFX_CLOCK_ENABLED)
-    if (!nrfx_clock_irq_enabled)
+  if (!nrfx_clock_irq_enabled)
 #endif
-    {
-        NRFX_IRQ_DISABLE(nrfx_get_irq_number(NRF_POWER));
-    }
+  {
+    NRFX_IRQ_DISABLE(nrfx_get_irq_number(NRF_POWER));
+  }
 #if NRFX_POWER_SUPPORTS_POFCON
-    nrfx_power_pof_uninit();
+  nrfx_power_pof_uninit();
 #endif
 #if NRF_POWER_HAS_SLEEPEVT
-    nrfx_power_sleepevt_uninit();
+  nrfx_power_sleepevt_uninit();
 #endif
 #if NRF_POWER_HAS_USBREG || defined(USBREG_PRESENT)
-    nrfx_power_usbevt_uninit();
+  nrfx_power_usbevt_uninit();
 #endif
-    m_initialized = false;
+  m_initialized = false;
 }
 
 #if NRFX_POWER_SUPPORTS_POFCON
-void nrfx_power_pof_init(nrfx_power_pofwarn_config_t const * p_config)
-{
-    NRFX_ASSERT(p_config != NULL);
+void nrfx_power_pof_init(nrfx_power_pofwarn_config_t const *p_config) {
+  NRFX_ASSERT(p_config != NULL);
 
-    nrfx_power_pof_uninit();
+  nrfx_power_pof_uninit();
 
-    if (p_config->handler != NULL)
-    {
-        m_pofwarn_handler = p_config->handler;
-    }
+  if (p_config->handler != NULL) {
+    m_pofwarn_handler = p_config->handler;
+  }
 }
 
-void nrfx_power_pof_enable(nrfx_power_pofwarn_config_t const * p_config)
-{
+void nrfx_power_pof_enable(nrfx_power_pofwarn_config_t const *p_config) {
 #if NRF_POWER_HAS_POFCON
-    nrf_power_pofcon_set(NRF_POWER, true, p_config->thr);
+  nrf_power_pofcon_set(NRF_POWER, true, p_config->thr);
 #elif NRF_REGULATORS_HAS_POFCON
-    nrf_regulators_pofcon_set(NRF_REGULATORS, true, p_config->thr);
+  nrf_regulators_pofcon_set(NRF_REGULATORS, true, p_config->thr);
 #endif
 
 #if NRF_POWER_HAS_POFCON_VDDH
-    nrf_power_pofcon_vddh_set(NRF_POWER, p_config->thrvddh);
+  nrf_power_pofcon_vddh_set(NRF_POWER, p_config->thrvddh);
 #elif NRF_REGULATORS_HAS_POFCON_VDDH
-    nrf_regulators_pofcon_vddh_set(NRF_REGULATORS, p_config->thrvddh);
+  nrf_regulators_pofcon_vddh_set(NRF_REGULATORS, p_config->thrvddh);
 #endif
 
-    if (m_pofwarn_handler != NULL)
-    {
-        nrf_power_int_enable(NRF_POWER, NRF_POWER_INT_POFWARN_MASK);
-    }
+  if (m_pofwarn_handler != NULL) {
+    nrf_power_int_enable(NRF_POWER, NRF_POWER_INT_POFWARN_MASK);
+  }
 }
 
-void nrfx_power_pof_disable(void)
-{
+void nrfx_power_pof_disable(void) {
 #if NRF_POWER_HAS_POFCON
-    nrf_power_pofcon_set(NRF_POWER, false, NRF_POWER_POFTHR_V27);
+  nrf_power_pofcon_set(NRF_POWER, false, NRF_POWER_POFTHR_V27);
 #elif NRF_REGULATORS_HAS_POFCON
-    nrf_regulators_pofcon_set(NRF_REGULATORS, false, NRF_REGULATORS_POFTHR_V27);
+  nrf_regulators_pofcon_set(NRF_REGULATORS, false, NRF_REGULATORS_POFTHR_V27);
 #endif
-    nrf_power_int_disable(NRF_POWER, NRF_POWER_INT_POFWARN_MASK);
+  nrf_power_int_disable(NRF_POWER, NRF_POWER_INT_POFWARN_MASK);
 }
 
-void nrfx_power_pof_uninit(void)
-{
-    m_pofwarn_handler = NULL;
-}
+void nrfx_power_pof_uninit(void) { m_pofwarn_handler = NULL; }
 #endif // NRFX_POWER_SUPPORTS_POFCON
 
 #if NRF_POWER_HAS_SLEEPEVT
-void nrfx_power_sleepevt_init(nrfx_power_sleepevt_config_t const * p_config)
-{
-    NRFX_ASSERT(p_config != NULL);
+void nrfx_power_sleepevt_init(nrfx_power_sleepevt_config_t const *p_config) {
+  NRFX_ASSERT(p_config != NULL);
 
-    nrfx_power_sleepevt_uninit();
-    if (p_config->handler != NULL)
-    {
-        m_sleepevt_handler = p_config->handler;
-    }
+  nrfx_power_sleepevt_uninit();
+  if (p_config->handler != NULL) {
+    m_sleepevt_handler = p_config->handler;
+  }
 }
 
-void nrfx_power_sleepevt_enable(nrfx_power_sleepevt_config_t const * p_config)
-{
-    uint32_t enmask = 0;
-    if (p_config->en_enter)
-    {
-        enmask |= NRF_POWER_INT_SLEEPENTER_MASK;
-        nrf_power_event_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPENTER);
-    }
-    if (p_config->en_exit)
-    {
-        enmask |= NRF_POWER_INT_SLEEPEXIT_MASK;
-        nrf_power_event_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPEXIT);
-    }
-    nrf_power_int_enable(NRF_POWER, enmask);
+void nrfx_power_sleepevt_enable(nrfx_power_sleepevt_config_t const *p_config) {
+  uint32_t enmask = 0;
+  if (p_config->en_enter) {
+    enmask |= NRF_POWER_INT_SLEEPENTER_MASK;
+    nrf_power_event_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPENTER);
+  }
+  if (p_config->en_exit) {
+    enmask |= NRF_POWER_INT_SLEEPEXIT_MASK;
+    nrf_power_event_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPEXIT);
+  }
+  nrf_power_int_enable(NRF_POWER, enmask);
 }
 
-void nrfx_power_sleepevt_disable(void)
-{
-    nrf_power_int_disable(NRF_POWER, NRF_POWER_INT_SLEEPENTER_MASK |
-                                     NRF_POWER_INT_SLEEPEXIT_MASK);
+void nrfx_power_sleepevt_disable(void) {
+  nrf_power_int_disable(NRF_POWER, NRF_POWER_INT_SLEEPENTER_MASK |
+                                       NRF_POWER_INT_SLEEPEXIT_MASK);
 }
 
-void nrfx_power_sleepevt_uninit(void)
-{
-    m_sleepevt_handler = NULL;
-}
+void nrfx_power_sleepevt_uninit(void) { m_sleepevt_handler = NULL; }
 #endif /* NRF_POWER_HAS_SLEEPEVT */
 
 #if NRF_POWER_HAS_USBREG
-void nrfx_power_usbevt_init(nrfx_power_usbevt_config_t const * p_config)
-{
-    NRFX_ASSERT(p_config != NULL);
+void nrfx_power_usbevt_init(nrfx_power_usbevt_config_t const *p_config) {
+  NRFX_ASSERT(p_config != NULL);
 
-    nrfx_power_usbevt_uninit();
-    if (p_config->handler != NULL)
-    {
-        m_usbevt_handler = p_config->handler;
-    }
+  nrfx_power_usbevt_uninit();
+  if (p_config->handler != NULL) {
+    m_usbevt_handler = p_config->handler;
+  }
 }
 
-void nrfx_power_usbevt_enable(void)
-{
-    nrf_power_int_enable(NRF_POWER, NRF_POWER_INT_USBDETECTED_MASK |
-                                    NRF_POWER_INT_USBREMOVED_MASK  |
-                                    NRF_POWER_INT_USBPWRRDY_MASK);
+void nrfx_power_usbevt_enable(void) {
+  nrf_power_int_enable(NRF_POWER, NRF_POWER_INT_USBDETECTED_MASK |
+                                      NRF_POWER_INT_USBREMOVED_MASK |
+                                      NRF_POWER_INT_USBPWRRDY_MASK);
 }
 
-void nrfx_power_usbevt_disable(void)
-{
-    nrf_power_int_disable(NRF_POWER, NRF_POWER_INT_USBDETECTED_MASK |
-                                     NRF_POWER_INT_USBREMOVED_MASK  |
-                                     NRF_POWER_INT_USBPWRRDY_MASK);
+void nrfx_power_usbevt_disable(void) {
+  nrf_power_int_disable(NRF_POWER, NRF_POWER_INT_USBDETECTED_MASK |
+                                       NRF_POWER_INT_USBREMOVED_MASK |
+                                       NRF_POWER_INT_USBPWRRDY_MASK);
 }
 
-void nrfx_power_usbevt_uninit(void)
-{
-    nrfx_power_usbevt_disable();
-    m_usbevt_handler = NULL;
+void nrfx_power_usbevt_uninit(void) {
+  nrfx_power_usbevt_disable();
+  m_usbevt_handler = NULL;
 }
-
 
 #endif /* NRF_POWER_HAS_USBREG */
 
-
-void nrfx_power_irq_handler(void)
-{
-    uint32_t enabled = nrf_power_int_enable_get(NRF_POWER);
-    /* Prevent "unused variable" warning when all below blocks are disabled. */
-    (void)enabled;
+void nrfx_power_irq_handler(void) {
+  uint32_t enabled = nrf_power_int_enable_get(NRF_POWER);
+  /* Prevent "unused variable" warning when all below blocks are disabled. */
+  (void)enabled;
 
 #if NRFX_POWER_SUPPORTS_POFCON
-    if ((0 != (enabled & NRF_POWER_INT_POFWARN_MASK)) &&
-        nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_POFWARN))
-    {
-        /* Cannot be null if event is enabled */
-        NRFX_ASSERT(m_pofwarn_handler != NULL);
-        m_pofwarn_handler();
-    }
+  if ((0 != (enabled & NRF_POWER_INT_POFWARN_MASK)) &&
+      nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_POFWARN)) {
+    /* Cannot be null if event is enabled */
+    NRFX_ASSERT(m_pofwarn_handler != NULL);
+    m_pofwarn_handler();
+  }
 #endif
 #if NRF_POWER_HAS_SLEEPEVT
-    if ((0 != (enabled & NRF_POWER_INT_SLEEPENTER_MASK)) &&
-        nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPENTER))
-    {
-        /* Cannot be null if event is enabled */
-        NRFX_ASSERT(m_sleepevt_handler != NULL);
-        m_sleepevt_handler(NRFX_POWER_SLEEP_EVT_ENTER);
-    }
-    if ((0 != (enabled & NRF_POWER_INT_SLEEPEXIT_MASK)) &&
-        nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPEXIT))
-    {
-        /* Cannot be null if event is enabled */
-        NRFX_ASSERT(m_sleepevt_handler != NULL);
-        m_sleepevt_handler(NRFX_POWER_SLEEP_EVT_EXIT);
-    }
+  if ((0 != (enabled & NRF_POWER_INT_SLEEPENTER_MASK)) &&
+      nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPENTER)) {
+    /* Cannot be null if event is enabled */
+    NRFX_ASSERT(m_sleepevt_handler != NULL);
+    m_sleepevt_handler(NRFX_POWER_SLEEP_EVT_ENTER);
+  }
+  if ((0 != (enabled & NRF_POWER_INT_SLEEPEXIT_MASK)) &&
+      nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_SLEEPEXIT)) {
+    /* Cannot be null if event is enabled */
+    NRFX_ASSERT(m_sleepevt_handler != NULL);
+    m_sleepevt_handler(NRFX_POWER_SLEEP_EVT_EXIT);
+  }
 #endif
 #if NRF_POWER_HAS_USBREG
-    if ((0 != (enabled & NRF_POWER_INT_USBDETECTED_MASK)) &&
-        nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_USBDETECTED))
-    {
-        /* Cannot be null if event is enabled */
-        NRFX_ASSERT(m_usbevt_handler != NULL);
-        m_usbevt_handler(NRFX_POWER_USB_EVT_DETECTED);
-    }
-    if ((0 != (enabled & NRF_POWER_INT_USBREMOVED_MASK)) &&
-        nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_USBREMOVED))
-    {
-        /* Cannot be null if event is enabled */
-        NRFX_ASSERT(m_usbevt_handler != NULL);
-        m_usbevt_handler(NRFX_POWER_USB_EVT_REMOVED);
-    }
-    if ((0 != (enabled & NRF_POWER_INT_USBPWRRDY_MASK)) &&
-        nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_USBPWRRDY))
-    {
-        /* Cannot be null if event is enabled */
-        NRFX_ASSERT(m_usbevt_handler != NULL);
-        m_usbevt_handler(NRFX_POWER_USB_EVT_READY);
-    }
+  if ((0 != (enabled & NRF_POWER_INT_USBDETECTED_MASK)) &&
+      nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_USBDETECTED)) {
+    /* Cannot be null if event is enabled */
+    NRFX_ASSERT(m_usbevt_handler != NULL);
+    m_usbevt_handler(NRFX_POWER_USB_EVT_DETECTED);
+  }
+  if ((0 != (enabled & NRF_POWER_INT_USBREMOVED_MASK)) &&
+      nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_USBREMOVED)) {
+    /* Cannot be null if event is enabled */
+    NRFX_ASSERT(m_usbevt_handler != NULL);
+    m_usbevt_handler(NRFX_POWER_USB_EVT_REMOVED);
+  }
+  if ((0 != (enabled & NRF_POWER_INT_USBPWRRDY_MASK)) &&
+      nrf_power_event_get_and_clear(NRF_POWER, NRF_POWER_EVENT_USBPWRRDY)) {
+    /* Cannot be null if event is enabled */
+    NRFX_ASSERT(m_usbevt_handler != NULL);
+    m_usbevt_handler(NRFX_POWER_USB_EVT_READY);
+  }
 #endif
 }
 
@@ -354,10 +316,9 @@ void nrfx_power_irq_handler(void)
  * function instead of another one defined as weak will require additional
  * actions, and might be even impossible.
  */
-void nrfx_power_clock_irq_handler(void)
-{
-    nrfx_power_irq_handler();
-    nrfx_clock_irq_handler();
+void nrfx_power_clock_irq_handler(void) {
+  nrfx_power_irq_handler();
+  nrfx_clock_irq_handler();
 }
 #endif
 

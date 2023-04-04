@@ -7,8 +7,8 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -50,297 +50,252 @@
 #define NRFX_DPPI_GROUPS_USED 0x00000000uL
 #endif
 
-#define DPPI_AVAILABLE_CHANNELS_MASK \
-    ((uint32_t)(((1ULL << DPPI_CH_NUM) - 1) & (~NRFX_DPPI_CHANNELS_USED)))
+#define DPPI_AVAILABLE_CHANNELS_MASK                                           \
+  ((uint32_t)(((1ULL << DPPI_CH_NUM) - 1) & (~NRFX_DPPI_CHANNELS_USED)))
 
-#define DPPI_AVAILABLE_GROUPS_MASK   \
-    (((1UL << DPPI_GROUP_NUM) - 1)   & (~NRFX_DPPI_GROUPS_USED))
+#define DPPI_AVAILABLE_GROUPS_MASK                                             \
+  (((1UL << DPPI_GROUP_NUM) - 1) & (~NRFX_DPPI_GROUPS_USED))
 
 /** @brief Set bit at given position. */
 #define DPPI_BIT_SET(pos) (1uL << (pos))
 
 static uint32_t m_allocated_channels;
 
-static uint8_t  m_allocated_groups;
+static uint8_t m_allocated_groups;
 
-static bool channel_is_allocated(uint8_t channel)
-{
-    return ((m_allocated_channels & DPPI_BIT_SET(channel)) != 0);
+static bool channel_is_allocated(uint8_t channel) {
+  return ((m_allocated_channels & DPPI_BIT_SET(channel)) != 0);
 }
 
-static bool group_is_allocated(nrf_dppi_channel_group_t group)
-{
-    return ((m_allocated_groups & DPPI_BIT_SET(group)) != 0);
+static bool group_is_allocated(nrf_dppi_channel_group_t group) {
+  return ((m_allocated_groups & DPPI_BIT_SET(group)) != 0);
 }
 
-void nrfx_dppi_free(void)
-{
-    uint32_t mask = m_allocated_groups;
-    uint8_t group_idx = NRF_DPPI_CHANNEL_GROUP0;
+void nrfx_dppi_free(void) {
+  uint32_t mask = m_allocated_groups;
+  uint8_t group_idx = NRF_DPPI_CHANNEL_GROUP0;
 
-    // Disable all channels
-    nrf_dppi_channels_disable(NRF_DPPIC, m_allocated_channels);
+  // Disable all channels
+  nrf_dppi_channels_disable(NRF_DPPIC, m_allocated_channels);
 
-    // Clear all groups configurations
-    while (mask)
-    {
-        nrf_dppi_channel_group_t group = (nrf_dppi_channel_group_t)group_idx;
-        if (mask & DPPI_BIT_SET(group))
-        {
-            nrf_dppi_group_clear(NRF_DPPIC, group);
-            mask &= ~DPPI_BIT_SET(group);
-        }
-        group_idx++;
+  // Clear all groups configurations
+  while (mask) {
+    nrf_dppi_channel_group_t group = (nrf_dppi_channel_group_t)group_idx;
+    if (mask & DPPI_BIT_SET(group)) {
+      nrf_dppi_group_clear(NRF_DPPIC, group);
+      mask &= ~DPPI_BIT_SET(group);
+    }
+    group_idx++;
+  }
+
+  // Clear all allocated channels.
+  m_allocated_channels = 0;
+
+  // Clear all allocated groups.
+  m_allocated_groups = 0;
+}
+
+nrfx_err_t nrfx_dppi_channel_alloc(uint8_t *p_channel) {
+  nrfx_err_t err_code;
+
+  NRFX_CRITICAL_SECTION_ENTER();
+  // Get mask of available DPPI channels
+  uint32_t remaining_channels =
+      DPPI_AVAILABLE_CHANNELS_MASK & ~(m_allocated_channels);
+  uint8_t channel = 0;
+
+  if (!remaining_channels) {
+    err_code = NRFX_ERROR_NO_MEM;
+  } else {
+    // Find first free channel
+    while (!(remaining_channels & DPPI_BIT_SET(channel))) {
+      channel++;
     }
 
-    // Clear all allocated channels.
-    m_allocated_channels = 0;
+    m_allocated_channels |= DPPI_BIT_SET(channel);
+    *p_channel = channel;
 
-    // Clear all allocated groups.
-    m_allocated_groups = 0;
+    err_code = NRFX_SUCCESS;
+  }
+  NRFX_CRITICAL_SECTION_EXIT();
+
+  if (err_code == NRFX_SUCCESS) {
+    NRFX_LOG_INFO("Allocated channel: %d.", channel);
+  } else {
+    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                  NRFX_LOG_ERROR_STRING_GET(err_code));
+  }
+  return err_code;
 }
 
-nrfx_err_t nrfx_dppi_channel_alloc(uint8_t * p_channel)
-{
-    nrfx_err_t err_code;
+nrfx_err_t nrfx_dppi_channel_free(uint8_t channel) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
 
+  NRFX_CRITICAL_SECTION_ENTER();
+  if (!channel_is_allocated(channel)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
+    // First disable this channel
+    nrf_dppi_channels_disable(NRF_DPPIC, DPPI_BIT_SET(channel));
+    // Clear channel allocated indication.
+    m_allocated_channels &= ~DPPI_BIT_SET(channel);
+  }
+  NRFX_CRITICAL_SECTION_EXIT();
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
+}
+
+nrfx_err_t nrfx_dppi_channel_enable(uint8_t channel) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
+
+  if (!channel_is_allocated(channel)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
+    nrf_dppi_channels_enable(NRF_DPPIC, DPPI_BIT_SET(channel));
+  }
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
+}
+
+nrfx_err_t nrfx_dppi_channel_disable(uint8_t channel) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
+
+  if (!channel_is_allocated(channel)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
+    nrf_dppi_channels_disable(NRF_DPPIC, DPPI_BIT_SET(channel));
+    err_code = NRFX_SUCCESS;
+  }
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
+}
+
+nrfx_err_t nrfx_dppi_group_alloc(nrf_dppi_channel_group_t *p_group) {
+  nrfx_err_t err_code;
+
+  NRFX_CRITICAL_SECTION_ENTER();
+  // Get mask of available DPPI groups
+  uint32_t remaining_groups =
+      DPPI_AVAILABLE_GROUPS_MASK & ~(m_allocated_groups);
+  uint8_t group_idx = NRF_DPPI_CHANNEL_GROUP0;
+
+  if (!remaining_groups) {
+    err_code = NRFX_ERROR_NO_MEM;
+  } else {
+    // Find first free group
+    while (!(remaining_groups &
+             DPPI_BIT_SET((nrf_dppi_channel_group_t)group_idx))) {
+      group_idx++;
+    }
+
+    nrf_dppi_channel_group_t group = (nrf_dppi_channel_group_t)group_idx;
+    m_allocated_groups |= DPPI_BIT_SET(group);
+    *p_group = group;
+
+    err_code = NRFX_SUCCESS;
+  }
+  NRFX_CRITICAL_SECTION_EXIT();
+
+  if (err_code == NRFX_SUCCESS) {
+    NRFX_LOG_INFO("Allocated channel: %d.", *p_group);
+  } else {
+    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                  NRFX_LOG_ERROR_STRING_GET(err_code));
+  }
+  return err_code;
+}
+
+nrfx_err_t nrfx_dppi_group_free(nrf_dppi_channel_group_t group) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
+
+  NRFX_CRITICAL_SECTION_ENTER();
+  if (!group_is_allocated(group)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
+    nrf_dppi_group_disable(NRF_DPPIC, group);
+    // Set bit value to zero at position corresponding to the group number.
+    m_allocated_groups &= ~DPPI_BIT_SET(group);
+  }
+  NRFX_CRITICAL_SECTION_EXIT();
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
+}
+
+nrfx_err_t nrfx_dppi_channel_include_in_group(uint8_t channel,
+                                              nrf_dppi_channel_group_t group) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
+
+  if (!group_is_allocated(group) || !channel_is_allocated(channel)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
     NRFX_CRITICAL_SECTION_ENTER();
-    // Get mask of available DPPI channels
-    uint32_t remaining_channels = DPPI_AVAILABLE_CHANNELS_MASK & ~(m_allocated_channels);
-    uint8_t channel = 0;
-
-    if (!remaining_channels)
-    {
-        err_code = NRFX_ERROR_NO_MEM;
-    }
-    else
-    {
-        // Find first free channel
-        while (!(remaining_channels & DPPI_BIT_SET(channel)))
-        {
-            channel++;
-        }
-
-        m_allocated_channels |= DPPI_BIT_SET(channel);
-        *p_channel = channel;
-
-        err_code = NRFX_SUCCESS;
-    }
+    nrf_dppi_channels_include_in_group(NRF_DPPIC, DPPI_BIT_SET(channel), group);
     NRFX_CRITICAL_SECTION_EXIT();
-
-    if (err_code == NRFX_SUCCESS)
-    {
-        NRFX_LOG_INFO("Allocated channel: %d.", channel);
-    }
-    else
-    {
-        NRFX_LOG_INFO("Function: %s, error code: %s.",
-                      __func__,
-                      NRFX_LOG_ERROR_STRING_GET(err_code));
-    }
-    return err_code;
+  }
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
 }
 
-nrfx_err_t nrfx_dppi_channel_free(uint8_t channel)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
+nrfx_err_t nrfx_dppi_channel_remove_from_group(uint8_t channel,
+                                               nrf_dppi_channel_group_t group) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
 
+  if (!group_is_allocated(group) || !channel_is_allocated(channel)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
     NRFX_CRITICAL_SECTION_ENTER();
-    if (!channel_is_allocated(channel))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        // First disable this channel
-        nrf_dppi_channels_disable(NRF_DPPIC, DPPI_BIT_SET(channel));
-        // Clear channel allocated indication.
-        m_allocated_channels &= ~DPPI_BIT_SET(channel);
-    }
+    nrf_dppi_channels_remove_from_group(NRF_DPPIC, DPPI_BIT_SET(channel),
+                                        group);
     NRFX_CRITICAL_SECTION_EXIT();
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
+  }
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
 }
 
-nrfx_err_t nrfx_dppi_channel_enable(uint8_t channel)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
+nrfx_err_t nrfx_dppi_group_clear(nrf_dppi_channel_group_t group) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
 
-    if (!channel_is_allocated(channel))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        nrf_dppi_channels_enable(NRF_DPPIC, DPPI_BIT_SET(channel));
-    }
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
+  if (!group_is_allocated(group)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
+    nrf_dppi_channels_remove_from_group(NRF_DPPIC, DPPI_AVAILABLE_CHANNELS_MASK,
+                                        group);
+  }
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
 }
 
-nrfx_err_t nrfx_dppi_channel_disable(uint8_t channel)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
+nrfx_err_t nrfx_dppi_group_enable(nrf_dppi_channel_group_t group) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
 
-    if (!channel_is_allocated(channel))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        nrf_dppi_channels_disable(NRF_DPPIC, DPPI_BIT_SET(channel));
-        err_code = NRFX_SUCCESS;
-    }
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
+  if (!group_is_allocated(group)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
+    nrf_dppi_group_enable(NRF_DPPIC, group);
+  }
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
 }
 
-nrfx_err_t nrfx_dppi_group_alloc(nrf_dppi_channel_group_t * p_group)
-{
-    nrfx_err_t err_code;
+nrfx_err_t nrfx_dppi_group_disable(nrf_dppi_channel_group_t group) {
+  nrfx_err_t err_code = NRFX_SUCCESS;
 
-    NRFX_CRITICAL_SECTION_ENTER();
-    // Get mask of available DPPI groups
-    uint32_t remaining_groups = DPPI_AVAILABLE_GROUPS_MASK & ~(m_allocated_groups);
-    uint8_t group_idx = NRF_DPPI_CHANNEL_GROUP0;
-
-    if (!remaining_groups)
-    {
-        err_code = NRFX_ERROR_NO_MEM;
-    }
-    else
-    {
-        // Find first free group
-        while (!(remaining_groups & DPPI_BIT_SET((nrf_dppi_channel_group_t)group_idx)))
-        {
-            group_idx++;
-        }
-
-        nrf_dppi_channel_group_t group = (nrf_dppi_channel_group_t)group_idx;
-        m_allocated_groups |= DPPI_BIT_SET(group);
-        *p_group = group;
-
-        err_code = NRFX_SUCCESS;
-    }
-    NRFX_CRITICAL_SECTION_EXIT();
-
-    if (err_code == NRFX_SUCCESS)
-    {
-        NRFX_LOG_INFO("Allocated channel: %d.", *p_group);
-    }
-    else
-    {
-        NRFX_LOG_INFO("Function: %s, error code: %s.",
-                      __func__,
-                      NRFX_LOG_ERROR_STRING_GET(err_code));
-    }
-    return err_code;
-}
-
-nrfx_err_t nrfx_dppi_group_free(nrf_dppi_channel_group_t group)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
-
-    NRFX_CRITICAL_SECTION_ENTER();
-    if (!group_is_allocated(group))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        nrf_dppi_group_disable(NRF_DPPIC, group);
-        // Set bit value to zero at position corresponding to the group number.
-        m_allocated_groups &= ~DPPI_BIT_SET(group);
-    }
-    NRFX_CRITICAL_SECTION_EXIT();
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
-}
-
-nrfx_err_t nrfx_dppi_channel_include_in_group(uint8_t                  channel,
-                                              nrf_dppi_channel_group_t group)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
-
-    if (!group_is_allocated(group) || !channel_is_allocated(channel))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        NRFX_CRITICAL_SECTION_ENTER();
-        nrf_dppi_channels_include_in_group(NRF_DPPIC, DPPI_BIT_SET(channel), group);
-        NRFX_CRITICAL_SECTION_EXIT();
-    }
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
-}
-
-nrfx_err_t nrfx_dppi_channel_remove_from_group(uint8_t                  channel,
-                                               nrf_dppi_channel_group_t group)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
-
-    if (!group_is_allocated(group) || !channel_is_allocated(channel))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        NRFX_CRITICAL_SECTION_ENTER();
-        nrf_dppi_channels_remove_from_group(NRF_DPPIC, DPPI_BIT_SET(channel), group);
-        NRFX_CRITICAL_SECTION_EXIT();
-    }
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
-}
-
-nrfx_err_t nrfx_dppi_group_clear(nrf_dppi_channel_group_t group)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
-
-    if (!group_is_allocated(group))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        nrf_dppi_channels_remove_from_group(NRF_DPPIC, DPPI_AVAILABLE_CHANNELS_MASK, group);
-    }
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
-}
-
-nrfx_err_t nrfx_dppi_group_enable(nrf_dppi_channel_group_t group)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
-
-    if (!group_is_allocated(group))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        nrf_dppi_group_enable(NRF_DPPIC, group);
-    }
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
-}
-
-nrfx_err_t nrfx_dppi_group_disable(nrf_dppi_channel_group_t group)
-{
-    nrfx_err_t err_code = NRFX_SUCCESS;
-
-    if (!group_is_allocated(group))
-    {
-        err_code = NRFX_ERROR_INVALID_PARAM;
-    }
-    else
-    {
-        nrf_dppi_group_disable(NRF_DPPIC, group);
-    }
-    NRFX_LOG_INFO("Function: %s, error code: %s.", __func__, NRFX_LOG_ERROR_STRING_GET(err_code));
-    return err_code;
+  if (!group_is_allocated(group)) {
+    err_code = NRFX_ERROR_INVALID_PARAM;
+  } else {
+    nrf_dppi_group_disable(NRF_DPPIC, group);
+  }
+  NRFX_LOG_INFO("Function: %s, error code: %s.", __func__,
+                NRFX_LOG_ERROR_STRING_GET(err_code));
+  return err_code;
 }
 
 #endif // NRFX_CHECK(NRFX_DPPI_ENABLED)
